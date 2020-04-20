@@ -34,7 +34,9 @@ jobs:
       - name: Export credentials
         run: echo ${JWT_KEYS_JSON} > jwt.keys.json
       - name: Build
-        run: node export-to-markdown.js
+        run: |
+          mkdir export
+          node export-to-markdown.js
       - name: Publish export to GitHub pages
         if: contains(github.ref, 'saga')
         run: |
