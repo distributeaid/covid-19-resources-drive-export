@@ -22,11 +22,11 @@ const listFiles = (parentFolder, parents = []) => async (auth) =>
           pageSize: 100,
           fields: "nextPageToken, files(id, name, mimeType)",
         },
-        (err, res) => {
-          if (err) return reject("The API returned an error: " + err);
+        async (err, res) => {
+          if (err) return reject("Could not list files: " + err);
           const files = res.data.files;
           if (!files.length) return resolve();
-          return Promise.all(
+          await Promise.all(
             files.map(async (file) => {
               if (file.mimeType === "application/vnd.google-apps.document") {
                 await exportFile(file.id, file.name, parents, auth);
@@ -35,7 +35,7 @@ const listFiles = (parentFolder, parents = []) => async (auth) =>
                 await listFiles(file.id, [...parents, file.name.trim()])(auth);
               }
             })
-          );
+          ).catch(reject);
         }
       );
     } catch (error) {
@@ -55,7 +55,7 @@ const exportFile = async (fileId, name, parents, auth) => {
         mimeType: "text/html",
       },
       async (err, res) => {
-        if (err) return reject("The API returned an error: " + err);
+        if (err) return reject("Could not export files: " + err);
         const html = cleanHTML(res.data);
         await new Promise((resolve, reject) => {
           const e = exec("pandoc -f html -t markdown_strict", (err, res) => {
