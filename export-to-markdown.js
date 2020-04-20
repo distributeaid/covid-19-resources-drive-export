@@ -58,10 +58,13 @@ const exportFile = async (fileId, name, parents, auth) => {
         if (err) return reject("Could not export files: " + err);
         const html = cleanHTML(res.data);
         await new Promise((resolve, reject) => {
-          const e = exec("pandoc -f html -t markdown_strict", (err, res) => {
-            if (err) return reject(err);
-            resolve(res);
-          });
+          const e = exec(
+            "pandoc -f html -t markdown_strict --columns=1000",
+            (err, res) => {
+              if (err) return reject(err);
+              resolve(res);
+            }
+          );
           e.stdin.write(html);
           e.stdin.end();
         })
