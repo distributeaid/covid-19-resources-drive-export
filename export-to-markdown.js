@@ -24,16 +24,17 @@ const listFiles = (parentFolder, parents = []) => async (auth) =>
         (err, res) => {
           if (err) return reject("The API returned an error: " + err);
           const files = res.data.files;
-          if (files.length) {
-            files.map((file) => {
+          if (!files.length) return resolve();
+          return Promise.all(
+            files.map(async (file) => {
               if (file.mimeType === "application/vnd.google-apps.document") {
-                exportFile(file.id, file.name, parents, auth);
+                await exportFile(file.id, file.name, parents, auth);
               }
               if (file.mimeType === "application/vnd.google-apps.folder") {
-                listFiles(file.id, [...parents, file.name.trim()])(auth);
+                await listFiles(file.id, [...parents, file.name.trim()])(auth);
               }
-            });
-          }
+            })
+          );
         }
       );
     } catch (error) {
