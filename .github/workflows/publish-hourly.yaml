@@ -39,6 +39,7 @@ jobs:
         run: |
           mkdir export
           node export-to-markdown.js
+          cp static/README.md export
       - name: Publish export to export branch
         if: contains(github.ref, 'saga')
         run: |
