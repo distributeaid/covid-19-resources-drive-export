@@ -3,6 +3,7 @@ const path = require("path");
 const { google } = require("googleapis");
 const { cleanHTML } = require("./cleanHTML");
 const exec = require("child_process").exec;
+const prettier = require("prettier");
 
 const baseFolder = "1FpnENOl1oZXLzmvvIqrR3kJgPNsGaDTo";
 const exportDir = [process.cwd(), "export"];
@@ -43,40 +44,37 @@ const listFiles = (parentFolder, parents = []) => async (auth) =>
   });
 
 const exportFile = async (fileId, name, parents, auth) => {
-  try {
-    const drive = google.drive({ version: "v3", auth });
-    const folder = path.join(...exportDir, ...parents);
-    const outFile = path.join(folder, `${name}.md`);
-    fs.mkdirSync(folder, { recursive: true });
-    return new Promise((resolve, reject) => {
-      drive.files.export(
-        {
-          fileId,
-          mimeType: "text/html",
-        },
-        async (err, res) => {
-          if (err) return reject("The API returned an error: " + err);
-          const html = cleanHTML(res.data);
-          const markdown = await new Promise((resolve, reject) => {
-            const e = exec("pandoc -f html -t markdown_strict", (err, res) => {
-              if (err) return reject(err);
-              resolve(res);
-            });
-            e.stdin.write(html);
-            e.stdin.end();
+  const drive = google.drive({ version: "v3", auth });
+  const folder = path.join(...exportDir, ...parents);
+  const outFile = path.join(folder, `${name}.md`);
+  fs.mkdirSync(folder, { recursive: true });
+  await new Promise((resolve, reject) => {
+    drive.files.export(
+      {
+        fileId,
+        mimeType: "text/html",
+      },
+      async (err, res) => {
+        if (err) return reject("The API returned an error: " + err);
+        const html = cleanHTML(res.data);
+        await new Promise((resolve, reject) => {
+          const e = exec("pandoc -f html -t markdown_strict", (err, res) => {
+            if (err) return reject(err);
+            resolve(res);
+          });
+          e.stdin.write(html);
+          e.stdin.end();
+        })
+          .then((markdown) => prettier.format(markdown, { parser: "markdown" }))
+          .then((markdown) => fs.promises.writeFile(outFile, markdown))
+          .then(() => {
+            console.log(outFile, "written");
+            resolve(outFile);
           })
-            .then((markdown) => fs.promises.writeFile(outFile, markdown))
-            .then(() => {
-              console.log(outFile, "written");
-              resolve(outFile);
-            })
-            .catch(reject);
-        }
-      );
-    });
-  } catch (error) {
-    reject(error);
-  }
+          .catch(reject);
+      }
+    );
+  });
 };
 
 const main = async () => {

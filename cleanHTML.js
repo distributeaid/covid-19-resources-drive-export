@@ -26,8 +26,8 @@ module.exports = {
       "h5",
       "h6",
     ].forEach((tag) => {
-      const spanTags = window.document.getElementsByTagName(tag);
-      [].forEach.call(spanTags, (tag) => {
+      const tags = window.document.getElementsByTagName(tag);
+      [].forEach.call(tags, (tag) => {
         tag.removeAttribute("style");
         tag.removeAttribute("class");
       });
