@@ -39,7 +39,7 @@ jobs:
         run: |
           mkdir export
           node export-to-markdown.js
-      - name: Publish export to GitHub pages
+      - name: Publish export to export branch
         if: contains(github.ref, 'saga')
         run: |
           echo "machine github.com login authtoken password ${GITHUB_TOKEN}" > ~/.netrc
@@ -50,4 +50,4 @@ jobs:
           git add ./*
           git commit -m 'latest export'
           git remote add origin https://github.com/${GITHUB_REPOSITORY}.git
-          git push -f origin HEAD:gh-pages
+          git push -f origin HEAD:export
