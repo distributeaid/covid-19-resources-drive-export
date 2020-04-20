@@ -12,3 +12,4 @@ This projects turns the content in the [Google Drive folder](https://drive.googl
 4. Enter `https://resources.distributeaid.org` as _Authorized Javascript Origin_
 5. Follow the [Create the service account and credentials](https://developers.google.com/admin-sdk/directory/v1/guides/delegation#create_the_service_account_and_credentials) instructions and generate a key for the service account
 6. Store that file in the project folder as `jwt.keys.json`
+7. Install [pandoc](https://pandoc.org/installing.html)
