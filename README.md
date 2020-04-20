@@ -4,6 +4,8 @@ This projects turns the content in the [Google Drive folder](https://drive.googl
 
 ## Set up
 
+> _WARNING!_ Use a blank Google Account when setting this up on Continuous Integration
+
 1. On the [Node.js Quickstart page](https://developers.google.com/drive/api/v3/quickstart/nodejs) enable the Drive API
 2. Pick "COVID-19 Aid Workers Guide" as the _new project name_
 3. Select "Web Server" as the OAuth client
