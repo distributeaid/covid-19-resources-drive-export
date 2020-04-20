@@ -73,4 +73,7 @@ const main = async () => {
   listFiles(baseFolder)(client);
 };
 
-main();
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});
