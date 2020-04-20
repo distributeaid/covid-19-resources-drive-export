@@ -12,7 +12,7 @@ env:
   JWT_KEYS_JSON: ${{ secrets.JWT_KEYS_JSON }}
 
 jobs:
-  main:
+  publish:
     runs-on: ubuntu-latest
 
     steps:
