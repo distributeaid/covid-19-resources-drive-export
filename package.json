@@ -1,17 +1,24 @@
 {
-  "name": "resources-exporter",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "@distributeaid/covid-19-resources-drive-export",
+  "version": "0.0.0-development",
+  "description": "Export of the COVID-10 resources Google Docs to Markdown",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "snyk-protect": "snyk protect",
     "prepare": "npm run snyk-protect",
     "postinstall": "check-node-version --package"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "Distribute Aid",
+    "COVID-19",
+    "Aid Workers Guide"
+  ],
+  "author": "Distribute Aid | https://distributeaid.org/",
+  "license": "AGPL-3.0-only",
+  "bugs": {
+    "url": "https://github.com/distributeaid/covid-19-resources-drive-export/issues"
+  },
+  "homepage": "https://github.com/distributeaid/covid-19-resources-drive-export#readme",
   "dependencies": {
     "googleapis": "^49.0.0",
     "jsdom": "^16.2.2",
