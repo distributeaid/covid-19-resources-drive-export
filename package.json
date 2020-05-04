@@ -1,7 +1,7 @@
 {
   "name": "@distributeaid/covid-19-resources-drive-export",
   "version": "0.0.0-development",
-  "description": "Export of the COVID-10 resources Google Docs to Markdown",
+  "description": "Export of the COVID-19 resources Google Docs as a static website",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "snyk-protect": "snyk protect",
@@ -29,5 +29,15 @@
   "engines": {
     "node": ">=14.0.0",
     "npm": ">=6.0.0"
+  },
+  "devDependencies": {
+    "@bifravst/code-style": "^7.1.10",
+    "gatsby": "^2.21.11",
+    "gatsby-cli": "^2.12.7",
+    "gatsby-plugin-typescript": "^2.4.0",
+    "gatsby-source-filesystem": "^2.3.0",
+    "react-dom": "^16.13.1",
+    "ts-node": "^8.10.1",
+    "typescript": "^3.8.3"
   }
 }
