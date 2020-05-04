@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "snyk-protect": "snyk protect",
-    "prepare": "npm run snyk-protect"
+    "prepare": "npm run snyk-protect",
+    "postinstall": "check-node-version --package"
   },
   "keywords": [],
   "author": "",
@@ -17,5 +18,9 @@
     "prettier": "^2.0.4",
     "snyk": "^1.316.1"
   },
-  "snyk": true
+  "snyk": true,
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  }
 }
