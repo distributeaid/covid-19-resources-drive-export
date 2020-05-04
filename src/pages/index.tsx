@@ -15,6 +15,21 @@ export const query = graphql`
         }
       }
     }
+    allMarkdownRemark {
+      edges {
+        node {
+          html
+          headings {
+            depth
+            value
+          }
+          frontmatter {
+            # Assumes you're using title in your frontmatter.
+            title
+          }
+        }
+      }
+    }
   }
 `;
 

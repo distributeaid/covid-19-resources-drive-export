@@ -31,5 +31,6 @@ module.exports = {
         ignore: [`**/.git/**`], // ignore files starting with a dot
       },
     },
+    `gatsby-transformer-remark`,
   ],
 };
