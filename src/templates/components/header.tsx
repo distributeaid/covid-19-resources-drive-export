@@ -66,9 +66,9 @@ const Header = ({
         rel="stylesheet"
       />
       <link
-        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;1,300&amp;display=swap"
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;1,300&amp;display=swap"
         rel="stylesheet"
-      ></link>
+      />
       <title>{title}</title>
     </Helmet>
     <GlobalStyle />

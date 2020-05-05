@@ -1,7 +1,7 @@
 export type PageContent = {
   id: string;
   name: string;
-  folder: string;
+  folder: string[];
   slug: string;
   remark: {
     htmlAst: string;

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { darkBlue, ink } from "../settings";
 
 const StyledFooter = styled.footer`
-  margin: 0;
+  margin: 4rem 0 0 0;
   padding: 2rem;
   background: linear-gradient(to right, ${ink} 25%, ${darkBlue} 100%);
   color: #ffffffe0;

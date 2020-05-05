@@ -74,7 +74,7 @@ exports.createPages = ({ graphql, actions: { createPage } }) =>
           }) => ({
             id,
             name,
-            folder: relativeDirectory,
+            folder: relativeDirectory?.split("/") ?? [],
             slug,
             remark: childMarkdownRemark,
           })
