@@ -1,6 +1,6 @@
 {
   "extends": "@bifravst/code-style/tsconfig.json",
-  "include": ["src/**/*.tsx", "src/**/*.ts", "src/templates/page.tsx"],
+  "include": ["src/**/*.tsx", "src/**/*.ts"],
   "compilerOptions": {
     "target": "esnext",
     "module": "commonjs",

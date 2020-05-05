@@ -32,14 +32,22 @@
   },
   "devDependencies": {
     "@bifravst/code-style": "^7.1.10",
+    "@types/react-helmet": "^5.0.15",
+    "@types/styled-components": "^5.1.0",
+    "babel-plugin-styled-components": "^1.10.7",
     "gatsby": "^2.21.11",
     "gatsby-cli": "^2.12.7",
+    "gatsby-plugin-react-helmet": "^3.3.1",
+    "gatsby-plugin-react-svg": "^3.0.0",
+    "gatsby-plugin-styled-components": "^3.3.1",
     "gatsby-plugin-typescript": "^2.4.0",
     "gatsby-source-filesystem": "^2.3.0",
     "gatsby-transformer-remark": "^2.8.5",
     "hast-to-hyperscript": "^8.1.0",
     "react-dom": "^16.13.1",
+    "react-helmet": "^6.0.0",
     "sanitize-filename": "^1.6.3",
+    "styled-components": "^5.1.0",
     "ts-node": "^8.10.1",
     "typescript": "^3.8.3"
   }

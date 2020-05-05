@@ -20,3 +20,8 @@ export type Page = {
     guidePages: PageContent[];
   };
 };
+
+declare module "*.svg" {
+  const content: React.StatelessComponent<React.SVGAttributes<SVGElement>>;
+  export default content;
+}

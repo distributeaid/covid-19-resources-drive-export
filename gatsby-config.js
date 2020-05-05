@@ -11,6 +11,7 @@ const siteUrl = (process.env.SITE_URL || pJSON.homepage).replace(/\//g, "");
 module.exports = {
   siteMetadata: {
     title: `Distribute Aid's COVID-19 Aid Workers Guide`,
+    shortTitle: `COVID-19 Aid Workers Guide`,
     siteUrl,
     description: `An Aid-Worker’s guide to COVID-19, Community Organising & Care handbooks and resources.`,
   },
@@ -32,5 +33,8 @@ module.exports = {
       },
     },
     `gatsby-transformer-remark`,
+    `gatsby-plugin-styled-components`,
+    `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-react-svg`,
   ],
 };
