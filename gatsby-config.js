@@ -1,6 +1,6 @@
+require("ts-node").register({ files: true });
 const fs = require("fs");
 const path = require("path");
-require("ts-node").register({ files: true });
 
 const pJSON = JSON.parse(
   fs.readFileSync(path.join(process.cwd(), "package.json"), "utf-8")
