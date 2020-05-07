@@ -2,7 +2,13 @@ import React from "react";
 import { createGlobalStyle } from "styled-components";
 import styled from "styled-components";
 import { Helmet } from "react-helmet";
-import { wideBreakpoint, darkBlue, ink } from "../settings";
+import {
+  wideBreakpoint,
+  darkBlue,
+  ink,
+  mobileBreakpoint,
+  ultrawideBreakpoint,
+} from "../settings";
 
 import Logo from "../../logo.svg";
 
@@ -32,23 +38,44 @@ const StyledHeader = styled.header`
   }
 `;
 
+const TitleContainer = styled.div`
+  @media (min-width: ${wideBreakpoint}) {
+    grid-column: 2 / span 2;
+  }
+`;
+
 const HeaderContainer = styled.div`
   display: flex;
   align-items: center;
   padding: 1rem 0 1rem 1rem;
   @media (min-width: ${wideBreakpoint}) {
-    margin: 2rem 1rem;
-    padding: 2rem 0;
-    max-width: ${wideBreakpoint};
+    padding: 2rem 0 2rem 1rem;
     margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr ${mobileBreakpoint} 1fr;
+    grid-template-rows: 1fr;
+    gap: 0 2rem;
+  }
+  @media (min-width: ${ultrawideBreakpoint}) {
+    grid-template-columns: 1fr ${wideBreakpoint} 1fr;
+    gap: 0 4rem;
   }
 `;
 
 const StyledLogo = styled(Logo)`
-  width: 150px;
+  width: 100px;
   margin-right: 1rem;
   @media (min-width: ${wideBreakpoint}) {
-    margin-right: 2rem;
+    width: 150px;
+    margin-right: 4rem;
+  }
+`;
+
+const LogoContainer = styled.div`
+  @media (min-width: ${wideBreakpoint}) {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
   }
 `;
 
@@ -74,12 +101,16 @@ const Header = ({
     <GlobalStyle />
     <StyledHeader>
       <HeaderContainer>
-        <a href="/">
-          <StyledLogo />
-        </a>
-        <a href="/">
-          <h1>{shortTitle}</h1>
-        </a>
+        <LogoContainer>
+          <a href="/">
+            <StyledLogo />
+          </a>
+        </LogoContainer>
+        <TitleContainer>
+          <a href="/">
+            <h1>{shortTitle}</h1>
+          </a>
+        </TitleContainer>
       </HeaderContainer>
     </StyledHeader>
   </>
