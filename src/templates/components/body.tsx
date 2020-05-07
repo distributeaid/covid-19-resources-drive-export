@@ -7,6 +7,7 @@ import {
   softPurple,
   sunshine,
   ultrawideBreakpoint,
+  ink,
 } from "../settings";
 
 export const BodyContainer = styled.div`
@@ -28,6 +29,7 @@ export const Main = styled.main`
   @media (min-width: ${wideBreakpoint}) {
     grid-column: 2;
     grid-row: 1;
+    margin-bottom: 4rem;
   }
   color: ${darkBlue};
   h1,
@@ -77,37 +79,52 @@ export const Main = styled.main`
 
 export const GuideNavigation = styled.nav`
   @media (min-width: ${wideBreakpoint}) {
+    background-color: ${sunshine}77;
+    border-right: 1px solid ${ink}33;
     grid-column: 1;
     grid-row: 1;
-    text-align: right;
-    padding: 2rem 0 2rem 2rem;
+    padding: 2rem 0 4rem 2rem;
   }
 `;
 
-export const FolderName = styled.span`
+export const FolderName = styled.p`
   text-transform: uppercase;
-  font-size: 0.8rem;
+  font-size: 80%;
   color: ${softPurple};
-  &:after {
-    content: " / ";
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1rem 1rem 1rem;
+  margin: 0;
+  svg {
+    width: 16px;
+    height: 16px;
   }
-  &:last-child {
-    &:after {
-      content: "";
-    }
-  }
+  cursor: pointer;
+`;
+
+export const Children = styled.div`
+  margin-left: 1rem;
 `;
 
 export const PageName = styled.p`
   font-weight: 300;
   margin: 0;
-  padding: 0;
-  opacity: 0.8;
+  padding: 1rem 1rem 1rem 1rem;
   & + & {
-    margin-bottom: 0.5rem;
+    padding-top: 0;
   }
+  opacity: 0.8;
   a {
     color: ${darkBlue};
     text-decoration: none;
+  }
+`;
+
+export const Folder = styled.div`
+  &.open {
+    > ${FolderName} {
+      background-color: #fffffffa;
+    }
   }
 `;

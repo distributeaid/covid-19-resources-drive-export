@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { renderHtmlAstToReact } from "../renderHtmlToReact";
 import { Page, PageContent } from "../types";
 import Header from "./components/header";
@@ -8,9 +8,14 @@ import {
   Main,
   GuideNavigation,
   FolderName,
+  Folder,
   PageName,
+  Children,
 } from "./components/body";
 import Footer from "./components/footer";
+
+import ChevronRightIcon from "feather-icons/dist/icons/chevron-right.svg";
+import ChevronDownIcon from "feather-icons/dist/icons/chevron-down.svg";
 
 export const query = graphql`
   query PageTemplateQuery {
@@ -23,39 +28,88 @@ export const query = graphql`
   }
 `;
 
+type Folder = {
+  label: string;
+  children: (PageContent | Folder)[];
+};
+
+const buildTree = (
+  pages: PageContent[],
+  level = 0,
+  parentFolder?: string[]
+): (PageContent | Folder)[] => [
+  ...pages.filter(
+    ({ folder }) => folder.join("/") === (parentFolder?.join("/") ?? "")
+  ),
+  ...[
+    ...new Set(
+      pages
+        .filter(({ folder }) => folder[level])
+        .filter(({ folder }) =>
+          folder.join("/").startsWith(parentFolder?.join("/") ?? "")
+        )
+        .map(({ folder }) => folder[level])
+    ),
+  ].map((label) => ({
+    label,
+    children: buildTree(pages, level + 1, [...(parentFolder ?? []), label]),
+  })),
+];
+
+const NavigationFolder = ({ folder }: { folder: Folder }) => {
+  const [visible, setVisible] = useState(false);
+  if (folder.children?.length === 0) return null;
+  return (
+    <Folder className={visible ? "open" : "closed"}>
+      <FolderName onClick={() => setVisible((v) => !v)}>
+        {folder.label}
+        {visible && <ChevronDownIcon />}
+        {!visible && <ChevronRightIcon />}
+      </FolderName>
+      {visible && (
+        <Children>
+          {folder.children
+            .filter((entry) => "children" in entry)
+            .map((entry, key) => (
+              <NavigationFolder key={key} folder={entry as Folder} />
+            ))}
+          {folder.children
+            .filter((entry) => !("children" in entry))
+            .map((page, key) => (
+              <PageName key={key}>
+                <a href={`${(page as PageContent).slug}`}>
+                  {(page as PageContent).name}
+                </a>
+              </PageName>
+            ))}
+        </Children>
+      )}
+    </Folder>
+  );
+};
+
 const Navigation = ({ guidePages }: { guidePages: PageContent[] }) => {
-  let lastFolder = "";
+  const pageTree = buildTree(guidePages);
+  console.log({ pageTree });
   return (
     <GuideNavigation>
-      <h2>
-        <FolderName>Guide</FolderName>
-      </h2>
       <PageName>
         <a href="/">Home</a>
       </PageName>
-      {guidePages
-        .sort(({ folder: f1 }, { folder: f2 }) =>
-          f1.join("/").localeCompare(f2.join("/"))
-        )
-        .map((page) => {
-          const f = page.folder.join("/");
-          const newFolder = lastFolder !== f;
-          lastFolder = f;
-          return (
-            <React.Fragment key={page.id}>
-              {newFolder && (
-                <h2>
-                  {page.folder.map((f, k) => (
-                    <FolderName key={k}>{f}</FolderName>
-                  ))}
-                </h2>
-              )}
-              <PageName>
-                <a href={`${page.slug}`}>{page.name}</a>
-              </PageName>
-            </React.Fragment>
-          );
-        })}
+      {pageTree
+        .filter((entry) => !("children" in entry))
+        .map((page, key) => (
+          <PageName key={key}>
+            <a href={`${(page as PageContent).slug}`}>
+              {(page as PageContent).name}
+            </a>
+          </PageName>
+        ))}
+      {pageTree
+        .filter((entry) => "children" in entry)
+        .map((entry, key) => (
+          <NavigationFolder key={key} folder={entry as Folder} />
+        ))}
     </GuideNavigation>
   );
 };

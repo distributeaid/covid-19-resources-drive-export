@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/distributeaid/covid-19-resources-drive-export#readme",
   "dependencies": {
+    "feather-icons": "^4.28.0",
     "googleapis": "^49.0.0",
     "jsdom": "^16.2.2",
     "prettier": "^2.0.4",
