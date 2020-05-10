@@ -40,15 +40,19 @@ jobs:
           format: YYYYMMDD-HH
       - name: Cache export
         uses: actions/cache@v1
+        id: cache-export
         with:
           path: ./export
           key:
             ${{ runner.OS }}-export-${{ steps.current-time.outputs.formattedTime
             }}
-      - name: Build
+      - name: Export drive folder
+        if: steps.cache-export.outputs.cache-hit != 'true'
         run: |
           mkdir export
           node export-to-markdown.js
+      - name: Build
+        run: |
           export SITE_DIR=covid-19-resources-drive-export
           npx gatsby build --prefix-paths
       - name: Publish export to gh-pages
