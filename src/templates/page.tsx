@@ -14,6 +14,7 @@ import {
 	NavigationToggle,
 } from './components/body'
 import Footer from './components/footer'
+import { withPrefix } from 'gatsby'
 
 import ChevronRightIcon from 'feather-icons/dist/icons/chevron-right.svg'
 import ChevronDownIcon from 'feather-icons/dist/icons/chevron-down.svg'
@@ -100,7 +101,7 @@ const NavigationFolder = ({
 						.filter((entry) => !('children' in entry))
 						.map((page, key) => (
 							<PageName key={key}>
-								<a href={`${(page as PageContent).slug}`}>
+								<a href={withPrefix((page as PageContent).slug)}>
 									{(page as PageContent).name}
 								</a>
 							</PageName>
@@ -143,7 +144,7 @@ const Navigation = ({
 				.filter((entry) => !('children' in entry))
 				.map((page, key) => (
 					<PageName key={key}>
-						<a href={`${(page as PageContent).slug}`}>
+						<a href={withPrefix((page as PageContent).slug)}>
 							{(page as PageContent).name}
 						</a>
 					</PageName>
