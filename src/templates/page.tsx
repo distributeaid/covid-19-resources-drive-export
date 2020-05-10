@@ -26,6 +26,7 @@ export const query = graphql`
 			siteMetadata {
 				title
 				shortTitle
+				description
 			}
 		}
 	}
@@ -123,10 +124,20 @@ const Navigation = ({
 		<GuideNavigation className={menuVisible ? 'visible' : 'hidden'}>
 			<NavigationToggle onClick={() => setMenuVisible((v) => !v)}>
 				Menu
-				<button>{menuVisible ? <CloseMenuIcon /> : <MenuIcon />}</button>
+				{menuVisible ? (
+					<button title="Hide menu">
+						<CloseMenuIcon />
+					</button>
+				) : (
+					<button title="Show menu">
+						<MenuIcon />
+					</button>
+				)}
 			</NavigationToggle>
 			<PageName>
-				<a href="/">Home</a>
+				<a href="/" title="Go to the start page">
+					Home
+				</a>
 			</PageName>
 			{pageTree
 				.filter((entry) => !('children' in entry))
@@ -152,13 +163,18 @@ const Navigation = ({
 
 const PageTemplate = (
 	data: Page & {
-		data: { site: { siteMetadata: { title: string; shortTitle: string } } }
+		data: {
+			site: {
+				siteMetadata: { title: string; shortTitle: string; description: string }
+			}
+		}
 	},
 ) => (
 	<>
 		<Header
 			title={data.data.site.siteMetadata.title}
 			shortTitle={data.data.site.siteMetadata.shortTitle}
+			description={data.data.site.siteMetadata.description}
 		/>
 		<BodyContainer>
 			<Main>{renderHtmlAstToReact(data.pageContext.page.remark.htmlAst)}</Main>

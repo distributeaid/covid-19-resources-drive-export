@@ -83,9 +83,11 @@ const LogoContainer = styled.div`
 const Header = ({
 	title,
 	shortTitle,
+	description,
 }: {
 	shortTitle: string
 	title: string
+	description: string
 }) => (
 	<>
 		<Helmet>
@@ -98,17 +100,19 @@ const Header = ({
 				rel="stylesheet"
 			/>
 			<title>{title}</title>
+			<meta name="description" content={description} />
+			<html lang="en" />
 		</Helmet>
 		<GlobalStyle />
 		<StyledHeader>
 			<HeaderContainer>
 				<LogoContainer>
-					<a href={withPrefix('/')}>
+					<a href={withPrefix('/')} title="Go to the start page">
 						<StyledLogo />
 					</a>
 				</LogoContainer>
 				<TitleContainer>
-					<a href={withPrefix('/')}>
+					<a href={withPrefix('/')} title="Go to the start page">
 						<h1>{shortTitle}</h1>
 					</a>
 				</TitleContainer>

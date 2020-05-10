@@ -4,7 +4,7 @@ import { darkBlue, ink } from '../settings'
 const StyledFooter = styled.footer`
 	padding: 2rem;
 	background: linear-gradient(to right, ${ink} 25%, ${darkBlue} 100%);
-	color: #ffffffe0;
+	color: #ffffff;
 	font-size: 1.25rem;
 	text-align: center;
 	a {
