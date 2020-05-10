@@ -1,5 +1,6 @@
 # Converts the COVID-19 Aid Workers Guide to a static website
 
+![Publish Export](https://github.com/distributeaid/covid-19-resources-drive-export/workflows/Publish%20Export/badge.svg?branch=saga)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
