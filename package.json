@@ -38,6 +38,7 @@
     "@types/react-helmet": "^5.0.15",
     "@types/styled-components": "^5.1.0",
     "babel-plugin-styled-components": "^1.10.7",
+    "bottleneck": "^2.19.5",
     "check-node-version": "^4.0.3",
     "eslint-plugin-react": "^7.19.0",
     "gatsby": "^2.21.21",
