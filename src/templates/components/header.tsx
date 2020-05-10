@@ -9,6 +9,7 @@ import {
 	mobileBreakpoint,
 	ultrawideBreakpoint,
 } from '../settings'
+import { withPrefix } from 'gatsby'
 
 import Logo from '../../logo.svg'
 
@@ -102,12 +103,12 @@ const Header = ({
 		<StyledHeader>
 			<HeaderContainer>
 				<LogoContainer>
-					<a href="/">
+					<a href={withPrefix('/')}>
 						<StyledLogo />
 					</a>
 				</LogoContainer>
 				<TitleContainer>
-					<a href="/">
+					<a href={withPrefix('/')}>
 						<h1>{shortTitle}</h1>
 					</a>
 				</TitleContainer>
