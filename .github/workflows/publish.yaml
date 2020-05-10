@@ -2,8 +2,6 @@ name: Publish Export
 
 on:
   push:
-    branches:
-      - saga
   schedule:
     - cron: "0 * * * *"
 
@@ -35,6 +33,18 @@ jobs:
         run: npm ci --no-audit
       - name: Export credentials
         run: echo ${JWT_KEYS_JSON} > jwt.keys.json
+      - name: Get current time
+        uses: 1466587594/get-current-time@v1
+        id: current-time
+        with:
+          format: YYYYMMDD-HH
+      - name: Cache export
+        uses: actions/cache@v1
+        with:
+          path: ./export
+          key:
+            ${{ runner.OS }}-export-${{ steps.current-time.outputs.formattedTime
+            }}
       - name: Build
         run: |
           mkdir export
