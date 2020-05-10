@@ -8,10 +8,12 @@ import {
 	sunshine,
 	ultrawideBreakpoint,
 	ink,
+	grey,
 } from '../settings'
 
 export const BodyContainer = styled.div`
-	margin: 2rem 1rem;
+	display: flex;
+	flex-direction: column-reverse;
 	@media (min-width: ${wideBreakpoint}) {
 		margin: 0 auto;
 		display: grid;
@@ -26,6 +28,10 @@ export const BodyContainer = styled.div`
 `
 
 export const Main = styled.main`
+	margin: 2rem 1rem;
+	img {
+		max-width: 100%;
+	}
 	@media (min-width: ${wideBreakpoint}) {
 		grid-column: 2;
 		grid-row: 1;
@@ -42,6 +48,9 @@ export const Main = styled.main`
 		font-style: italic;
 		text-transform: uppercase;
 		margin-top: 3rem;
+		&:first-child {
+			margin-top: 0;
+		}
 	}
 	h1 {
 		font-size: 3rem;
@@ -74,16 +83,6 @@ export const Main = styled.main`
 			padding: 1rem 2rem;
 			margin: 2rem 0 0 0;
 		}
-	}
-`
-
-export const GuideNavigation = styled.nav`
-	@media (min-width: ${wideBreakpoint}) {
-		background-color: ${sunshine}77;
-		border-right: 1px solid ${ink}33;
-		grid-column: 1;
-		grid-row: 1;
-		padding: 2rem 0 4rem 2rem;
 	}
 `
 
@@ -121,10 +120,49 @@ export const PageName = styled.p`
 	}
 `
 
+export const GuideNavigation = styled.nav`
+	background-color: ${sunshine}77;
+	@media (max-width: ${wideBreakpoint}) {
+		&.hidden {
+			${FolderName}, ${PageName} {
+				display: none;
+			}
+		}
+	}
+	@media (min-width: ${wideBreakpoint}) {
+		padding: 1rem 0 2rem 1rem;
+		border-right: 1px solid ${ink}33;
+		grid-column: 1;
+		grid-row: 1;
+	}
+	@media (min-width: ${ultrawideBreakpoint}) {
+		padding: 2rem 0 4rem 2rem;
+	}
+`
+
 export const Folder = styled.div`
 	&.open {
 		> ${FolderName} {
 			background-color: #fffffffa;
 		}
+	}
+`
+
+export const NavigationToggle = styled.div`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 1rem;
+	color: ${grey};
+	cursor: pointer;
+	button {
+		background-color: transparent;
+		color: inherit;
+		border: 0;
+		padding: 0;
+		margin: 0;
+	}
+	@media (min-width: ${wideBreakpoint}) {
+		display: none;
 	}
 `

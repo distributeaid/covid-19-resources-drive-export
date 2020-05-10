@@ -11,11 +11,14 @@ import {
 	Folder,
 	PageName,
 	Children,
+	NavigationToggle,
 } from './components/body'
 import Footer from './components/footer'
 
 import ChevronRightIcon from 'feather-icons/dist/icons/chevron-right.svg'
 import ChevronDownIcon from 'feather-icons/dist/icons/chevron-down.svg'
+import MenuIcon from 'feather-icons/dist/icons/menu.svg'
+import CloseMenuIcon from 'feather-icons/dist/icons/x.svg'
 
 export const query = graphql`
 	query PageTemplateQuery {
@@ -115,8 +118,13 @@ const Navigation = ({
 	currentPage: PageContent
 }) => {
 	const pageTree = buildTree(guidePages)
+	const [menuVisible, setMenuVisible] = useState(false)
 	return (
-		<GuideNavigation>
+		<GuideNavigation className={menuVisible ? 'visible' : 'hidden'}>
+			<NavigationToggle onClick={() => setMenuVisible((v) => !v)}>
+				Menu
+				<button>{menuVisible ? <CloseMenuIcon /> : <MenuIcon />}</button>
+			</NavigationToggle>
 			<PageName>
 				<a href="/">Home</a>
 			</PageName>

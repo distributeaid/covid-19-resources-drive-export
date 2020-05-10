@@ -1,7 +1,5 @@
-import React from "react";
+import React from 'react'
+import * as hastToHyperscript from 'hast-to-hyperscript'
 
-const hastToHyperscript = require("hast-to-hyperscript");
-
-export const renderHtmlAstToReact = (node: any) => {
-  return hastToHyperscript(React.createElement, node);
-};
+export const renderHtmlAstToReact = (tree: any) =>
+	hastToHyperscript(React.createElement, tree).props.children
