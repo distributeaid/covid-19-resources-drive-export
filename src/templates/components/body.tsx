@@ -88,7 +88,6 @@ export const Main = styled.main`
 
 export const FolderName = styled.p`
 	text-transform: uppercase;
-	font-size: 80%;
 	color: ${softPurple};
 	display: flex;
 	justify-content: space-between;
@@ -100,6 +99,10 @@ export const FolderName = styled.p`
 		height: 16px;
 	}
 	cursor: pointer;
+	font-size: 1.25rem;
+	@media (min-width: ${wideBreakpoint}) {
+		font-size: 1rem;
+	}
 `
 
 export const Children = styled.div`
@@ -117,6 +120,10 @@ export const PageName = styled.p`
 	a {
 		color: ${darkBlue};
 		text-decoration: none;
+	}
+	font-size: 1.25rem;
+	@media (min-width: ${wideBreakpoint}) {
+		font-size: 1rem;
 	}
 `
 
