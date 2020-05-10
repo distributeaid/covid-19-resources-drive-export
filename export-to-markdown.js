@@ -4,6 +4,7 @@ const { google } = require("googleapis");
 const { cleanHTML } = require("./cleanHTML");
 const exec = require("child_process").exec;
 const prettier = require("prettier");
+const sanitize = require("sanitize-filename");
 
 const baseFolder = "1FpnENOl1oZXLzmvvIqrR3kJgPNsGaDTo";
 const exportDir = [process.cwd(), "export"];
@@ -45,8 +46,8 @@ const listFiles = (parentFolder, parents = []) => async (auth) =>
 
 const exportFile = async (fileId, name, parents, auth) => {
   const drive = google.drive({ version: "v3", auth });
-  const folder = path.join(...exportDir, ...parents);
-  const outFile = path.join(folder, `${name}.md`);
+  const folder = path.join(...exportDir, ...parents.map(sanitize));
+  const outFile = path.join(folder, `${sanitize(name)}.md`);
   fs.mkdirSync(folder, { recursive: true });
   await new Promise((resolve, reject) => {
     drive.files.export(

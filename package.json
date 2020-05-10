@@ -1,7 +1,7 @@
 {
   "name": "@distributeaid/covid-19-resources-drive-export",
   "version": "0.0.0-development",
-  "description": "Export of the COVID-10 resources Google Docs to Markdown",
+  "description": "Export of the COVID-19 resources Google Docs as a static website",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "snyk-protect": "snyk protect",
@@ -20,14 +20,58 @@
   },
   "homepage": "https://github.com/distributeaid/covid-19-resources-drive-export#readme",
   "dependencies": {
-    "googleapis": "^49.0.0",
+    "feather-icons": "^4.28.0",
+    "googleapis": "^50.0.0",
     "jsdom": "^16.2.2",
-    "prettier": "^2.0.4",
-    "snyk": "^1.316.1"
+    "snyk": "^1.319.2"
   },
   "snyk": true,
   "engines": {
     "node": ">=14.0.0",
     "npm": ">=6.0.0"
+  },
+  "devDependencies": {
+    "@bifravst/code-style": "^7.1.11",
+    "@bifravst/eslint-config-typescript": "^3.3.0",
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-angular": "^8.3.4",
+    "@types/react-helmet": "^5.0.15",
+    "@types/styled-components": "^5.1.0",
+    "babel-plugin-styled-components": "^1.10.7",
+    "check-node-version": "^4.0.3",
+    "eslint-plugin-react": "^7.19.0",
+    "gatsby": "^2.21.21",
+    "gatsby-cli": "^2.12.15",
+    "gatsby-plugin-react-helmet": "^3.3.1",
+    "gatsby-plugin-react-svg": "^3.0.0",
+    "gatsby-plugin-styled-components": "^3.3.1",
+    "gatsby-plugin-typescript": "^2.4.2",
+    "gatsby-source-filesystem": "^2.3.1",
+    "gatsby-transformer-remark": "^2.8.7",
+    "hast-to-hyperscript": "^8.1.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.2",
+    "prettier": "^2.0.5",
+    "react-dom": "^16.13.1",
+    "react-helmet": "^6.0.0",
+    "sanitize-filename": "^1.6.3",
+    "styled-components": "^5.1.0",
+    "ts-node": "^8.10.1",
+    "typescript": "^3.8.3"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -e",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "prettier --write",
+      "eslint --ext .js,.ts,.tsx"
+    ],
+    "*.{md,json,yaml,yml,js}": [
+      "prettier --write"
+    ]
   }
 }

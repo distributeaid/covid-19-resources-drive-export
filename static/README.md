@@ -1,20 +1,22 @@
-# Distribute Aid's COVID-19 Aid Workers Guide
+---
+title: Distribute Aid's COVID-19 Aid Workers Guide
+---
 
-> **Note:** If you have access to bulk food, hygiene, clothing, blankets/sleeping bags, tents, or medical supplies please email hello@distributeaid.org. We are looking for quantities of 1 pallet or more. We can help you get them to where they are most needed, and help you or your company ensure all regulations and policies are followed.
+> **Note:** If you have access to bulk food, hygiene, clothing, blankets/sleeping bags, tents, or medical supplies please email [hello@distributeaid.org](mailto:hello@distributeaid.org). We are looking for quantities of 1 pallet or more. We can help you get them to where they are most needed, and help you or your company ensure all regulations and policies are followed.
 
 ## Contribute
 
 Want to add your own ideas or research? Perhaps new information has come out? Maybe you’re just cooped up in quarantine and want to deep dive on something. Whatever the reason, we welcome your contributions!
 
-**Quick Suggestions** - Comment on the [Google Document version of the guide](https://drive.google.com/drive/folders/1FpnENOl1oZXLzmvvIqrR3kJgPNsGaDTo) you are viewing and we'll work your suggestion into the daily updates. Please include sources or credentials for any medical facts & advice.
+**Quick Suggestions**: Comment on the [Google Document version of the guide](https://drive.google.com/drive/folders/1FpnENOl1oZXLzmvvIqrR3kJgPNsGaDTo) you are viewing and we'll work your suggestion into the daily updates. Please include sources or credentials for any medical facts & advice.
 
-**Submit New Materials** - We’d love to include additional guides or handouts that you have access to. Please share them in the [#project-resources](https://distributeaid.github.io/slack-invite-link/) channel on Slack. Include links back to the original author so we can properly credit them.
+**Submit New Materials**: We’d love to include additional guides or handouts that you have access to. Please share them in the [#project-resources](https://distributeaid.github.io/slack-invite-link/) channel on Slack. Include links back to the original author so we can properly credit them.
 
-**Help Us Research, Write, Or Translate** - We have had an amazing group of volunteers help us to produce these guides, and you can be one of them! If you’re up for some more involved work as a researcher, writer, or translator, then [introduce yourself on Slack](https://distributeaid.github.io/slack-invite-link/) and we'll help get you setup. Please include how you’d like to contribute and your availability over the next 2-4 weeks.
+**Help Us Research, Write, Or Translate**: We have had an amazing group of volunteers help us to produce these guides, and you can be one of them! If you’re up for some more involved work as a researcher, writer, or translator, then [introduce yourself on Slack](https://distributeaid.github.io/slack-invite-link/) and we'll help get you setup. Please include how you’d like to contribute and your availability over the next 2-4 weeks.
 
-**Review The Guides** - If you are an experienced aid worker or have medical training, we’d love a review to ensure we’re sharing up-to-date facts and the best possible advice. Feel free to comment on the Google Document versions directly, or email us at hello@distributeaid.org to set up a more directed review.
+**Review The Guides**: If you are an experienced aid worker or have medical training, we’d love a review to ensure we’re sharing up-to-date facts and the best possible advice. Feel free to comment on the Google Document versions directly, or email us at hello@distributeaid.org to set up a more directed review.
 
-**Improve This Site** - Catch [our dev team on Slack](https://distributeaid.github.io/slack-invite-link/) and contribute to [this site on GitHub](https://github.com/distributeaid/covid-19-resources-drive-export).
+**Improve This Site**: Catch [our dev team on Slack](https://distributeaid.github.io/slack-invite-link/) and contribute to [this site on GitHub](https://github.com/distributeaid/covid-19-resources-drive-export).
 
 ## Translate
 
@@ -32,13 +34,13 @@ All of our resources are free- share, print, rehost, or even remix them! They ar
 
 You are free to:
 
-- **Share** - copy and redistribute the material in any medium or format.
-- **Adopt** - remix, transform, and build upon the material for any purpose, even commercially.
+- **Share**: copy and redistribute the material in any medium or format.
+- **Adopt**: remix, transform, and build upon the material for any purpose, even commercially.
 
 As long as you do the following:
 
-- **ShareAlike** - If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
-- **Attribution** - A link back to our site would be nice. :)
+- **ShareAlike**: If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
+- **Attribution**: A link back to our site would be nice. :)
 
 ## About Distribute Aid
 
