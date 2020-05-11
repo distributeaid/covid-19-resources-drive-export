@@ -7,7 +7,8 @@ const prettier = require('prettier')
 const sanitize = require('sanitize-filename')
 const Bottleneck = require('bottleneck')
 
-const baseFolder = '1FpnENOl1oZXLzmvvIqrR3kJgPNsGaDTo'
+const baseFolder =
+	process.env.GOOGLE_DRIVE_ID || '1FpnENOl1oZXLzmvvIqrR3kJgPNsGaDTo'
 const exportDir = [process.cwd(), 'export']
 const limiter = new Bottleneck({
 	minTime: 110,
