@@ -14,6 +14,13 @@ const limiter = new Bottleneck({
 	minTime: 110,
 })
 
+const supportedMimeTypes = [
+	'application/vnd.google-apps.document',
+	'application/vnd.google-apps.folder',
+	'application/pdf',
+	'video/mp4',
+]
+
 /**
  * Lists the names and IDs of up to 100 files.
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
@@ -24,9 +31,11 @@ const listFiles = (parentFolder, parents = []) => async (auth) =>
 		limiter
 			.schedule(() =>
 				drive.files.list({
-					q: `"${parentFolder}" in parents and (mimeType = 'application/vnd.google-apps.folder' or mimeType = 'application/vnd.google-apps.document')`,
+					q: `"${parentFolder}" in parents and (${supportedMimeTypes
+						.map((type) => `mimeType = '${type}'`)
+						.join(' or ')})`,
 					pageSize: 100,
-					fields: 'nextPageToken, files(id, name, mimeType)',
+					fields: 'nextPageToken, files(id, name, mimeType, webViewLink)',
 				}),
 			)
 			.then((res) => {
@@ -35,10 +44,17 @@ const listFiles = (parentFolder, parents = []) => async (auth) =>
 				return Promise.all(
 					files.map(async (file) => {
 						if (file.mimeType === 'application/vnd.google-apps.document') {
-							await exportFile(file.id, file.name, parents, auth)
-						}
-						if (file.mimeType === 'application/vnd.google-apps.folder') {
+							await exportFile(file.id, file.name, file.mimeType, parents, auth)
+						} else if (file.mimeType === 'application/vnd.google-apps.folder') {
 							await listFiles(file.id, [...parents, file.name.trim()])(auth)
+						} else {
+							await exportFileLink(
+								file.id,
+								file.name,
+								file.mimeType,
+								parents,
+								file.webViewLink,
+							)
 						}
 					}),
 				)
@@ -46,10 +62,38 @@ const listFiles = (parentFolder, parents = []) => async (auth) =>
 			.catch((err) => reject('Could not list files: ' + err))
 	})
 
-const exportFile = async (fileId, name, parents, auth) => {
+const exportFileLink = async (
+	fileId,
+	title,
+	mimeType,
+	parents,
+	downloadUrl,
+) => {
+	const folder = path.join(...exportDir, ...parents.map(sanitize))
+	const outFile = path.join(folder, `${sanitize(title)}.md`)
+	await fs.promises.mkdir(folder, { recursive: true })
+	await fs.promises.writeFile(
+		outFile,
+		[
+			'---',
+			`title: "${title}"`,
+			`driveId: ${fileId}`,
+			`mimeType: ${mimeType}`,
+			`url: ${downloadUrl}`,
+			'---',
+			'',
+			`# ${title}`,
+			'',
+			`[Click here](${downloadUrl}) to download the file.`,
+		].join('\n'),
+	)
+	console.log(outFile, 'written')
+}
+
+const exportFile = async (fileId, title, mimeType, parents, auth) => {
 	const drive = google.drive({ version: 'v3', auth })
 	const folder = path.join(...exportDir, ...parents.map(sanitize))
-	const outFile = path.join(folder, `${sanitize(name)}.md`)
+	const outFile = path.join(folder, `${sanitize(title)}.md`)
 	fs.mkdirSync(folder, { recursive: true })
 	await new Promise((resolve, reject) => {
 		limiter
@@ -74,7 +118,20 @@ const exportFile = async (fileId, name, parents, auth) => {
 					}),
 			)
 			.then((markdown) => prettier.format(markdown, { parser: 'markdown' }))
-			.then((markdown) => fs.promises.writeFile(outFile, markdown))
+			.then((markdown) =>
+				fs.promises.writeFile(
+					outFile,
+					[
+						'---',
+						`title: "${title}"`,
+						`driveId: ${fileId}`,
+						`mimeType: ${mimeType}`,
+						'---',
+						'',
+						markdown,
+					].join('\n'),
+				),
+			)
 			.then(() => {
 				console.log(outFile, 'written')
 				resolve(outFile)

@@ -125,6 +125,15 @@ export const PageName = styled.p`
 	@media (min-width: ${wideBreakpoint}) {
 		font-size: 1rem;
 	}
+	a {
+		display: flex;
+		align-items: center;
+		svg {
+			opacity: 0.75;
+			margin-right: 0.5rem;
+			flex-shrink: 0;
+		}
+	}
 `
 
 export const GuideNavigation = styled.nav`

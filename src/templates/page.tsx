@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { renderHtmlAstToReact } from '../renderHtmlToReact'
-import { Page, PageContent } from '../types'
 import Header from './components/header'
 import { graphql } from 'gatsby'
 import {
@@ -20,6 +19,42 @@ import ChevronRightIcon from 'feather-icons/dist/icons/chevron-right.svg'
 import ChevronDownIcon from 'feather-icons/dist/icons/chevron-down.svg'
 import MenuIcon from 'feather-icons/dist/icons/menu.svg'
 import CloseMenuIcon from 'feather-icons/dist/icons/x.svg'
+import DocumentIcon from 'feather-icons/dist/icons/file-text.svg'
+import DownloadIcon from 'feather-icons/dist/icons/download.svg'
+import VideoIcon from 'feather-icons/dist/icons/video.svg'
+
+export enum MimeType {
+	pdf = 'application/pdf',
+	video = 'video/mp4',
+	document = 'application/vnd.google-apps.document',
+}
+
+export type PageContent = {
+	id: string
+	name: string
+	folder?: string[]
+	slug: string
+	driveId: string
+	title: string
+	url?: string
+	mimeType: MimeType
+	remark?: {
+		htmlAst: string
+		headings: {
+			depth: number
+			value: string
+		}[]
+	}
+}
+
+export type Page = {
+	path: string
+	location: URL
+	pageContext: {
+		page: PageContent
+		guidePages: PageContent[]
+	}
+}
 
 export const query = graphql`
 	query PageTemplateQuery {
@@ -61,6 +96,28 @@ const buildTree = (
 	})),
 ]
 
+const LinkEntry = ({ page }: { page: PageContent }) => {
+	if (page.mimeType === MimeType.pdf || page.mimeType === MimeType.video) {
+		return (
+			<PageName>
+				<a href={page.url} target="_blank" rel="noopener noreferrer">
+					{page.mimeType === MimeType.pdf && <DownloadIcon />}
+					{page.mimeType === MimeType.video && <VideoIcon />}
+					{page.name}
+				</a>
+			</PageName>
+		)
+	}
+	return (
+		<PageName>
+			<a href={withPrefix(page.slug)}>
+				<DocumentIcon />
+				{page.name}
+			</a>
+		</PageName>
+	)
+}
+
 const NavigationFolder = ({
 	folder,
 	currentPage,
@@ -100,11 +157,7 @@ const NavigationFolder = ({
 					{folder.children
 						.filter((entry) => !('children' in entry))
 						.map((page, key) => (
-							<PageName key={key}>
-								<a href={withPrefix((page as PageContent).slug)}>
-									{(page as PageContent).name}
-								</a>
-							</PageName>
+							<LinkEntry key={key} page={page as PageContent} />
 						))}
 				</Children>
 			)}
@@ -137,17 +190,14 @@ const Navigation = ({
 			</NavigationToggle>
 			<PageName>
 				<a href="/" title="Go to the start page">
+					<DocumentIcon />
 					Home
 				</a>
 			</PageName>
 			{pageTree
 				.filter((entry) => !('children' in entry))
 				.map((page, key) => (
-					<PageName key={key}>
-						<a href={withPrefix((page as PageContent).slug)}>
-							{(page as PageContent).name}
-						</a>
-					</PageName>
+					<LinkEntry key={key} page={page as PageContent} />
 				))}
 			{pageTree
 				.filter((entry) => 'children' in entry)
