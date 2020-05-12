@@ -23,7 +23,7 @@
     "feather-icons": "^4.28.0",
     "googleapis": "^50.0.0",
     "jsdom": "^16.2.2",
-    "snyk": "^1.319.2"
+    "snyk": "^1.320.2"
   },
   "snyk": true,
   "engines": {
@@ -35,14 +35,14 @@
     "@bifravst/eslint-config-typescript": "^3.3.0",
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-angular": "^8.3.4",
-    "@types/react-helmet": "^5.0.15",
+    "@types/react-helmet": "^6.0.0",
     "@types/styled-components": "^5.1.0",
     "babel-plugin-styled-components": "^1.10.7",
     "bottleneck": "^2.19.5",
     "check-node-version": "^4.0.3",
     "eslint-plugin-react": "^7.19.0",
-    "gatsby": "^2.21.22",
-    "gatsby-cli": "^2.12.16",
+    "gatsby": "^2.21.24",
+    "gatsby-cli": "^2.12.17",
     "gatsby-plugin-react-helmet": "^3.3.1",
     "gatsby-plugin-react-svg": "^3.0.0",
     "gatsby-plugin-styled-components": "^3.3.1",
@@ -58,7 +58,7 @@
     "sanitize-filename": "^1.6.3",
     "styled-components": "^5.1.0",
     "ts-node": "^8.10.1",
-    "typescript": "^3.8.3"
+    "typescript": "^3.9.2"
   },
   "husky": {
     "hooks": {
