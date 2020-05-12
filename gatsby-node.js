@@ -27,6 +27,7 @@ exports.createPages = ({ graphql, actions: { createPage } }) =>
 							}
 							htmlAst
 							frontmatter {
+								driveId
 								title
 								url
 								mimeType

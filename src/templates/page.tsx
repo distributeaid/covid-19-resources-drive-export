@@ -22,6 +22,9 @@ import CloseMenuIcon from 'feather-icons/dist/icons/x.svg'
 import DocumentIcon from 'feather-icons/dist/icons/file-text.svg'
 import DownloadIcon from 'feather-icons/dist/icons/download.svg'
 import VideoIcon from 'feather-icons/dist/icons/video.svg'
+import { SearchBar } from '../search/SearchBar'
+import algoliasearch from 'algoliasearch/lite'
+import { ShowSearchResult } from '../search/ShowSearchResult'
 
 export enum MimeType {
 	pdf = 'application/pdf',
@@ -96,7 +99,7 @@ const buildTree = (
 	})),
 ]
 
-const LinkEntry = ({ page }: { page: PageContent }) => {
+export const LinkEntry = ({ page }: { page: PageContent }) => {
 	if (page.mimeType === MimeType.pdf || page.mimeType === MimeType.video) {
 		return (
 			<PageName>
@@ -168,9 +171,13 @@ const NavigationFolder = ({
 const Navigation = ({
 	guidePages,
 	currentPage,
+	onSearch,
+	searchResult,
 }: {
 	guidePages: PageContent[]
 	currentPage: PageContent
+	onSearch: (query: string) => void
+	searchResult: { objectID: string }[]
 }) => {
 	const pageTree = buildTree(guidePages)
 	const [menuVisible, setMenuVisible] = useState(false)
@@ -188,6 +195,10 @@ const Navigation = ({
 					</button>
 				)}
 			</NavigationToggle>
+			<SearchBar onSearch={onSearch} />
+			{searchResult && (
+				<ShowSearchResult searchResult={searchResult} guidePages={guidePages} />
+			)}
 			<PageName>
 				<a href="/" title="Go to the start page">
 					<DocumentIcon />
@@ -220,37 +231,58 @@ const PageTemplate = (
 			}
 		}
 	},
-) => (
-	<>
-		<Header
-			title={data.data.site.siteMetadata.title}
-			shortTitle={data.data.site.siteMetadata.shortTitle}
-			description={data.data.site.siteMetadata.description}
-		/>
-		<BodyContainer>
-			<Main>{renderHtmlAstToReact(data.pageContext.page.remark.htmlAst)}</Main>
-			<Navigation
-				guidePages={data.pageContext.guidePages}
-				currentPage={data.pageContext.page}
+) => {
+	const [searchResult, updateSearchResult] = useState<{ objectID: string }[]>()
+	const algoliaClient = algoliasearch(
+		process.env.GATSBY_ALGOLIA_APP_ID || '',
+		process.env.GATSBY_ALGOLIA_SEARCH_KEY || '',
+	)
+	const onSearch = (query: string) => {
+		console.log(query)
+		const pagesIndex = algoliaClient.initIndex('Pages')
+		pagesIndex
+			.search(query, { attributesToRetrieve: ['objectID'] })
+			.then((res) => {
+				updateSearchResult(res.hits)
+			})
+			.catch(console.error)
+	}
+	return (
+		<>
+			<Header
+				title={data.data.site.siteMetadata.title}
+				shortTitle={data.data.site.siteMetadata.shortTitle}
+				description={data.data.site.siteMetadata.description}
 			/>
-		</BodyContainer>
+			<BodyContainer>
+				<Main>
+					{renderHtmlAstToReact(data.pageContext.page.remark.htmlAst)}
+				</Main>
+				<Navigation
+					guidePages={data.pageContext.guidePages}
+					currentPage={data.pageContext.page}
+					onSearch={onSearch}
+					searchResult={searchResult}
+				/>
+			</BodyContainer>
 
-		<Footer>
-			<p>
-				Contact:{' '}
-				<a href="mailto:hello@distributeaid.org">hello@distributeaid.org</a>
-			</p>
-			<p>
-				<a
-					href="https://distributeaid.github.io/slack-invite-link/"
-					target="_blank"
-					rel="nofollow noopener noreferrer"
-				>
-					Join our Slack!
-				</a>
-			</p>
-		</Footer>
-	</>
-)
+			<Footer>
+				<p>
+					Contact:{' '}
+					<a href="mailto:hello@distributeaid.org">hello@distributeaid.org</a>
+				</p>
+				<p>
+					<a
+						href="https://distributeaid.github.io/slack-invite-link/"
+						target="_blank"
+						rel="nofollow noopener noreferrer"
+					>
+						Join our Slack!
+					</a>
+				</p>
+			</Footer>
+		</>
+	)
+}
 
 export default PageTemplate

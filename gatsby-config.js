@@ -37,5 +37,43 @@ module.exports = {
 		`gatsby-plugin-styled-components`,
 		`gatsby-plugin-react-helmet`,
 		`gatsby-plugin-react-svg`,
+		{
+			resolve: `gatsby-plugin-algolia`,
+			options: {
+				appId: process.env.GATSBY_ALGOLIA_APP_ID,
+				apiKey: process.env.ALGOLIA_ADMIN_KEY,
+				queries: [
+					{
+						query: `{
+							pages: allMarkdownRemark {
+							  edges {
+								node {
+								  frontmatter {
+									title
+									objectID: driveId
+								  }
+								  excerpt(pruneLength: 5000)
+								}
+							  }
+							}
+						  }`,
+						transformer: ({
+							data: {
+								pages: { edges },
+							},
+						}) =>
+							edges
+								.map(({ node: { frontmatter, ...rest } }) => ({
+									...rest,
+									...frontmatter,
+								}))
+								.filter(({ objectID }) => objectID !== null),
+						indexName: `Pages`,
+						settings: { attributesToSnippet: [`excerpt:20`] },
+					},
+				],
+				chunkSize: 10000,
+			},
+		},
 	],
 }
