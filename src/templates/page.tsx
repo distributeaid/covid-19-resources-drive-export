@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { renderHtmlAstToReact } from '../renderHtmlToReact'
 import Header from './components/header'
 import { graphql } from 'gatsby'
@@ -11,9 +11,11 @@ import {
 	PageName,
 	Children,
 	NavigationToggle,
+	DocumentNavigationContainer,
 } from './components/body'
 import Footer from './components/footer'
 import { withPrefix } from 'gatsby'
+import { useDebouncedCallback } from 'use-debounce'
 
 import ChevronRightIcon from 'feather-icons/dist/icons/chevron-right.svg'
 import ChevronDownIcon from 'feather-icons/dist/icons/chevron-down.svg'
@@ -38,6 +40,12 @@ export enum MimeType {
 	document = 'application/vnd.google-apps.document',
 }
 
+export type PageHeading = {
+	id: string
+	depth: number
+	value: string
+}
+
 export type PageContent = {
 	id: string
 	name: string
@@ -49,10 +57,7 @@ export type PageContent = {
 	mimeType: MimeType
 	remark?: {
 		htmlAst: string
-		headings: {
-			depth: number
-			value: string
-		}[]
+		headings: PageHeading[]
 	}
 }
 
@@ -231,6 +236,29 @@ const Navigation = ({
 	)
 }
 
+const DocumentNavigation = ({ headings }: { headings: PageHeading[] }) => {
+	if (!headings.length) return null
+	const [scrollTop, setScrollTop] = useState(0)
+	const top = document.getElementsByTagName('header')?.[0]?.clientHeight ?? 0
+	const [debounceOnScroll] = useDebouncedCallback(() => {
+		setScrollTop(window.scrollY)
+	}, 250)
+	useEffect(() => {
+		window.onscroll = debounceOnScroll
+	}, [window])
+	return (
+		<DocumentNavigationContainer
+			style={{ paddingTop: Math.max(0, scrollTop - top) }}
+		>
+			{headings.map(({ id, depth, value }, key) => (
+				<a href={`#${id}`} key={key} className={`level-${depth}`}>
+					{value}
+				</a>
+			))}
+		</DocumentNavigationContainer>
+	)
+}
+
 const PageTemplate = (
 	data: Page & {
 		data: {
@@ -240,7 +268,9 @@ const PageTemplate = (
 		}
 	},
 ) => {
-	const [searchResult, updateSearchResult] = useState<{ objectID: string }[]>()
+	const [searchResult, updateSearchResult] = useState<{ objectID: string }[]>(
+		[],
+	)
 
 	const onSearch = (query: string) => {
 		pagesIndex
@@ -258,8 +288,13 @@ const PageTemplate = (
 				description={data.data.site.siteMetadata.description}
 			/>
 			<BodyContainer>
+				{data.pageContext.page.remark?.headings && (
+					<DocumentNavigation
+						headings={data.pageContext.page.remark.headings}
+					/>
+				)}
 				<Main>
-					{renderHtmlAstToReact(data.pageContext.page.remark.htmlAst)}
+					{renderHtmlAstToReact(data.pageContext.page.remark?.htmlAst)}
 				</Main>
 				<Navigation
 					guidePages={data.pageContext.guidePages}

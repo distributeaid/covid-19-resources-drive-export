@@ -22,6 +22,7 @@ exports.createPages = ({ graphql, actions: { createPage } }) =>
 						relativeDirectory
 						childMarkdownRemark {
 							headings {
+								id
 								depth
 								value
 							}
@@ -55,6 +56,7 @@ exports.createPages = ({ graphql, actions: { createPage } }) =>
 								childMarkdownRemark {
 									htmlAst
 									headings {
+										id
 										depth
 										value
 									}

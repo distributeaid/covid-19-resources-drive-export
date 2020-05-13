@@ -33,7 +33,12 @@ module.exports = {
 				ignore: [`**/.git/**`], // ignore files starting with a dot
 			},
 		},
-		`gatsby-transformer-remark`,
+		{
+			resolve: `gatsby-transformer-remark`,
+			options: {
+				plugins: [`gatsby-remark-autolink-headers`],
+			},
+		},
 		`gatsby-plugin-styled-components`,
 		`gatsby-plugin-react-helmet`,
 		`gatsby-plugin-react-svg`,

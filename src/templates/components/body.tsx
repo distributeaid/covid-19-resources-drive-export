@@ -7,6 +7,7 @@ import {
 	softPurple,
 	sunshine,
 	ultrawideBreakpoint,
+	extrawideBreakpoint,
 	ink,
 	grey,
 } from '../settings'
@@ -181,5 +182,38 @@ export const NavigationToggle = styled.div`
 	}
 	@media (min-width: ${wideBreakpoint}) {
 		display: none;
+	}
+`
+
+export const DocumentNavigationContainer = styled.aside`
+	display: none;
+	@media (min-width: ${extrawideBreakpoint}) {
+		display: flex;
+		flex-direction: column;
+		transition: 1s all ease;
+		margin-top: 4rem;
+	}
+	a {
+		color: ${grey};
+		font-weight: 300;
+		text-decoration: none;
+		margin-top: 1rem;
+		&.level-1 {
+		}
+		&.level-2 {
+			margin-left: 1rem;
+		}
+		&.level-3 {
+			margin-left: 2rem;
+		}
+		&.level-4 {
+			margin-left: 3rem;
+		}
+		&.level-5 {
+			margin-left: 4rem;
+		}
+		&.level-6 {
+			margin-left: 5rem;
+		}
 	}
 `

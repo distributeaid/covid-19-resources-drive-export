@@ -1,5 +1,6 @@
 export const mobileBreakpoint = '600px'
 export const wideBreakpoint = '900px'
+export const extrawideBreakpoint = '1200px'
 export const ultrawideBreakpoint = '1600px'
 export const darkBlue = '#09328b'
 export const ink = '#082b76'
