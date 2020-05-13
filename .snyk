@@ -10,3 +10,5 @@ patch:
         patched: '2020-05-12T22:31:04.508Z'
     - gatsby-plugin-algolia > gatsby-cli > yurnalist > inquirer > lodash:
         patched: '2020-05-12T22:31:04.508Z'
+    - gatsby-remark-autolink-headers > lodash:
+        patched: '2020-05-13T22:09:02.639Z'
