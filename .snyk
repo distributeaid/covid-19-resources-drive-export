@@ -6,3 +6,7 @@ patch:
   SNYK-JS-LODASH-567746:
     - jsdom > request-promise-native > request-promise-core > lodash:
         patched: '2020-05-01T03:09:10.762Z'
+    - gatsby-plugin-algolia > gatsby-cli > lodash:
+        patched: '2020-05-12T22:31:04.508Z'
+    - gatsby-plugin-algolia > gatsby-cli > yurnalist > inquirer > lodash:
+        patched: '2020-05-12T22:31:04.508Z'
