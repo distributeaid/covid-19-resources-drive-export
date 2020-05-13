@@ -26,6 +26,12 @@ import { SearchBar } from '../search/SearchBar'
 import algoliasearch from 'algoliasearch/lite'
 import { ShowSearchResult } from '../search/ShowSearchResult'
 
+const algoliaClient = algoliasearch(
+	process.env.GATSBY_ALGOLIA_APP_ID || '',
+	process.env.GATSBY_ALGOLIA_SEARCH_KEY || '',
+)
+const pagesIndex = algoliaClient.initIndex('Pages')
+
 export enum MimeType {
 	pdf = 'application/pdf',
 	video = 'video/mp4',
@@ -172,11 +178,13 @@ const Navigation = ({
 	guidePages,
 	currentPage,
 	onSearch,
+	onClear,
 	searchResult,
 }: {
 	guidePages: PageContent[]
 	currentPage: PageContent
 	onSearch: (query: string) => void
+	onClear: () => void
 	searchResult: { objectID: string }[]
 }) => {
 	const pageTree = buildTree(guidePages)
@@ -195,7 +203,7 @@ const Navigation = ({
 					</button>
 				)}
 			</NavigationToggle>
-			<SearchBar onSearch={onSearch} />
+			<SearchBar onSearch={onSearch} onClear={onClear} />
 			{searchResult && (
 				<ShowSearchResult searchResult={searchResult} guidePages={guidePages} />
 			)}
@@ -233,13 +241,8 @@ const PageTemplate = (
 	},
 ) => {
 	const [searchResult, updateSearchResult] = useState<{ objectID: string }[]>()
-	const algoliaClient = algoliasearch(
-		process.env.GATSBY_ALGOLIA_APP_ID || '',
-		process.env.GATSBY_ALGOLIA_SEARCH_KEY || '',
-	)
+
 	const onSearch = (query: string) => {
-		console.log(query)
-		const pagesIndex = algoliaClient.initIndex('Pages')
 		pagesIndex
 			.search(query, { attributesToRetrieve: ['objectID'] })
 			.then((res) => {
@@ -262,6 +265,9 @@ const PageTemplate = (
 					guidePages={data.pageContext.guidePages}
 					currentPage={data.pageContext.page}
 					onSearch={onSearch}
+					onClear={() => {
+						updateSearchResult([])
+					}}
 					searchResult={searchResult}
 				/>
 			</BodyContainer>
