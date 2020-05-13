@@ -117,6 +117,19 @@ const exportFile = async (fileId, title, mimeType, parents, auth) => {
 						e.stdin.end()
 					}),
 			)
+			// Replace Table of Content links
+			.then((markdown) =>
+				markdown
+					.split('\n')
+					.map((s) =>
+						s.replace(
+							/^\[[^\]]+\]\(#h\.[a-z0-9]+\)\s+\[[0-9]+\]\(#h\.[a-z0-9]+\)/,
+							'',
+						),
+					)
+					.join('\n')
+					.replace(/\n{3,}/g, '\n\n'),
+			)
 			.then((markdown) => prettier.format(markdown, { parser: 'markdown' }))
 			.then((markdown) =>
 				fs.promises.writeFile(

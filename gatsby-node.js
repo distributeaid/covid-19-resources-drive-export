@@ -82,13 +82,10 @@ exports.createPages = ({ graphql, actions: { createPage } }) =>
 						name,
 						folder: relativeDirectory?.split('/') ?? [],
 						slug,
-						driveId: childMarkdownRemark.frontmatter.driveId,
-						title: childMarkdownRemark.frontmatter.title,
-						url:
-							childMarkdownRemark.frontmatter.url !== null
-								? childMarkdownRemark.frontmatter.url
-								: undefined,
-						mimeType: childMarkdownRemark.frontmatter.mimeType,
+						driveId: childMarkdownRemark?.frontmatter?.driveId,
+						title: childMarkdownRemark?.frontmatter?.title,
+						url: childMarkdownRemark?.frontmatter?.url,
+						mimeType: childMarkdownRemark?.frontmatter?.mimeType,
 						remark: childMarkdownRemark,
 					}),
 				)
