@@ -10,6 +10,7 @@ import {
 	ink,
 	grey,
 } from '../settings'
+import { SearchInputContainer } from './search'
 
 export const BodyContainer = styled.div`
 	display: flex;
@@ -140,7 +141,7 @@ export const GuideNavigation = styled.nav`
 	background-color: ${sunshine}77;
 	@media (max-width: ${wideBreakpoint}) {
 		&.hidden {
-			${FolderName}, ${PageName} {
+			${FolderName}, ${PageName}, ${SearchInputContainer} {
 				display: none;
 			}
 		}
