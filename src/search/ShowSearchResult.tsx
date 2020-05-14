@@ -1,6 +1,12 @@
 import React from 'react'
-import { PageContent, LinkEntry } from '../templates/page'
-import { SearchResultList } from '../templates/components/search'
+import { PageContent } from '../content'
+import { LinkEntry } from '../navigation/Navigation'
+import styled from 'styled-components'
+import { ink } from '../templates/settings'
+
+const SearchResultList = styled.div`
+	border-bottom: 1px solid ${ink}33;
+`
 
 export const ShowSearchResult = ({
 	guidePages,

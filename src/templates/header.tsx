@@ -8,10 +8,10 @@ import {
 	ink,
 	mobileBreakpoint,
 	ultrawideBreakpoint,
-} from '../settings'
+} from './settings'
 import { withPrefix } from 'gatsby'
 
-import Logo from '../../logo.svg'
+import Logo from '../logo.svg'
 
 const GlobalStyle = createGlobalStyle`
       html,
