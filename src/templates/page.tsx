@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { renderHtmlAstToReact } from '../renderHtmlToReact'
 import Header from './components/header'
-import { graphql } from 'gatsby'
+import { graphql, withPrefix } from 'gatsby'
 import {
 	BodyContainer,
 	Main,
@@ -14,8 +14,10 @@ import {
 	DocumentNavigationContainer,
 } from './components/body'
 import Footer from './components/footer'
-import { withPrefix } from 'gatsby'
 import { useDebouncedCallback } from 'use-debounce'
+import { SearchBar } from '../search/SearchBar'
+import algoliasearch from 'algoliasearch/lite'
+import { ShowSearchResult } from '../search/ShowSearchResult'
 
 import ChevronRightIcon from 'feather-icons/dist/icons/chevron-right.svg'
 import ChevronDownIcon from 'feather-icons/dist/icons/chevron-down.svg'
@@ -24,9 +26,6 @@ import CloseMenuIcon from 'feather-icons/dist/icons/x.svg'
 import DocumentIcon from 'feather-icons/dist/icons/file-text.svg'
 import DownloadIcon from 'feather-icons/dist/icons/download.svg'
 import VideoIcon from 'feather-icons/dist/icons/video.svg'
-import { SearchBar } from '../search/SearchBar'
-import algoliasearch from 'algoliasearch/lite'
-import { ShowSearchResult } from '../search/ShowSearchResult'
 
 const algoliaClient = algoliasearch(
 	process.env.GATSBY_ALGOLIA_APP_ID || '',
@@ -213,7 +212,7 @@ const Navigation = ({
 				<ShowSearchResult searchResult={searchResult} guidePages={guidePages} />
 			)}
 			<PageName>
-				<a href="/" title="Go to the start page">
+				<a href={withPrefix('/')} title="Go to the start page">
 					<DocumentIcon />
 					Home
 				</a>
