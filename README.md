@@ -6,7 +6,7 @@
 
 This projects turns the content in the
 [Google Drive folder](https://drive.google.com/drive/folders/1FpnENOl1oZXLzmvvIqrR3kJgPNsGaDTo)
-into a static website.
+into a static website using [Gatsby.js](https://www.gatsbyjs.org/)
 
 ## Set up the export
 
@@ -46,3 +46,23 @@ to export the Google Drive contents to the `export` folder.
 
       npm ci
       npx gatsby develop
+
+## How this project works
+
+Gatsby is configured in [`gatsby-node.js`](./gatsby-node.js) to collect the
+markdown files in the `export` folder and turn them into pages. In addition the
+[`static/README.md`](./static/README.md) will be used as the start page.
+
+All pages are rendered using the template
+[`src/templates/page.tsx`](./src/templates/pages.tsx).
+
+### Search
+
+In addition, when building the version for production, the
+[Algolia](http://algolia.com/) `Pages` index is filled based on the
+configuration in [`gatsby-config.js`](./gatsby-config.js). For this to work
+these environment variables have to be configured:
+
+      GATSBY_ALGOLIA_APP_ID=...
+      GATSBY_ALGOLIA_SEARCH_KEY=...
+      ALGOLIA_ADMIN_KEY=...
