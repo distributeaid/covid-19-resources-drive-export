@@ -238,7 +238,10 @@ const Navigation = ({
 const DocumentNavigation = ({ headings }: { headings: PageHeading[] }) => {
 	if (!headings.length) return null
 	const [scrollTop, setScrollTop] = useState(0)
-	const top = document?.getElementsByTagName('header')?.[0]?.clientHeight ?? 0
+	let top = 0
+	if (document) {
+		top = document.getElementsByTagName('header')?.[0]?.clientHeight ?? 0
+	}
 	const [debounceOnScroll] = useDebouncedCallback(() => {
 		setScrollTop(window.scrollY)
 	}, 250)
