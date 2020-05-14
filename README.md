@@ -8,7 +8,17 @@ This projects turns the content in the
 [Google Drive folder](https://drive.google.com/drive/folders/1FpnENOl1oZXLzmvvIqrR3kJgPNsGaDTo)
 into a static website.
 
-## Set up
+## Set up the export
+
+### Using a copy of the export
+
+Every time the website is published the export folder is zipped and published,
+which you can download:
+
+      wget https://raw.githubusercontent.com/distributeaid/covid-19-resources-drive-export/gh-pages/export.zip
+      unzip export.zip ./
+
+### Using the Google Drive API
 
 > _WARNING!_ Use a blank Google Account when setting this up on Continuous
 > Integration
@@ -25,7 +35,14 @@ into a static website.
 6. Store that file in the project folder as `jwt.keys.json`
 7. Install [pandoc](https://pandoc.org/installing.html)
 
+You can now run
+
+      npm ci
+      export-to-markdown.js
+
+to export the Google Drive contents to the `export` folder.
+
 ## Start Gatsby
 
-    npm ci
-    npx gatsby develop
+      npm ci
+      npx gatsby develop
