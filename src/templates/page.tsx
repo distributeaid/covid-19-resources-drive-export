@@ -27,6 +27,8 @@ import DocumentIcon from 'feather-icons/dist/icons/file-text.svg'
 import DownloadIcon from 'feather-icons/dist/icons/download.svg'
 import VideoIcon from 'feather-icons/dist/icons/video.svg'
 
+const windowGlobal = (typeof window !== 'undefined' && window) || undefined
+
 const algoliaClient = algoliasearch(
 	process.env.GATSBY_ALGOLIA_APP_ID || '',
 	process.env.GATSBY_ALGOLIA_SEARCH_KEY || '',
@@ -238,16 +240,15 @@ const Navigation = ({
 const DocumentNavigation = ({ headings }: { headings: PageHeading[] }) => {
 	if (!headings.length) return null
 	const [scrollTop, setScrollTop] = useState(0)
-	let top = 0
-	if (document) {
-		top = document.getElementsByTagName('header')?.[0]?.clientHeight ?? 0
-	}
+	const top =
+		windowGlobal?.document.getElementsByTagName('header')?.[0]?.clientHeight ??
+		0
 	const [debounceOnScroll] = useDebouncedCallback(() => {
 		setScrollTop(window.scrollY)
 	}, 250)
 	useEffect(() => {
-		window.onscroll = debounceOnScroll
-	}, [window])
+		if (windowGlobal) windowGlobal.onscroll = debounceOnScroll
+	}, [windowGlobal])
 	return (
 		<DocumentNavigationContainer
 			style={{ paddingTop: Math.max(0, scrollTop - top) }}
@@ -296,7 +297,8 @@ const PageTemplate = (
 					/>
 				)}
 				<Main>
-					{renderHtmlAstToReact(data.pageContext.page.remark?.htmlAst)}
+					{data.pageContext.page.remark?.htmlAst &&
+						renderHtmlAstToReact(data.pageContext.page.remark.htmlAst)}
 				</Main>
 				<Navigation
 					guidePages={data.pageContext.guidePages}
