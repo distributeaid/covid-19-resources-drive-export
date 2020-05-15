@@ -16,7 +16,7 @@ Every time the website is published the export folder is zipped and published,
 which you can download:
 
       wget https://raw.githubusercontent.com/distributeaid/covid-19-resources-drive-export/gh-pages/export.zip
-      unzip export.zip ./
+      unzip export.zip
 
 ### Using the Google Drive API
 
