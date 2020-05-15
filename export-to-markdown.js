@@ -107,7 +107,7 @@ const exportFile = async (fileId, title, mimeType, parents, auth) => {
 				(res) =>
 					new Promise((resolve, reject) => {
 						const e = exec(
-							'pandoc -f html -t markdown_strict --columns=1000',
+							'pandoc -f html-native_divs-native_spans -t commonmark-raw_html --columns=1000',
 							(err, res) => {
 								if (err) return reject(err)
 								resolve(res)
