@@ -1,32 +1,22 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState } from 'react'
 import { renderHtmlAstToReact } from '../renderHtmlToReact'
-import Header from './components/header'
+import Header from './header'
 import { graphql } from 'gatsby'
-import {
-	BodyContainer,
-	Main,
-	GuideNavigation,
-	FolderName,
-	Folder,
-	PageName,
-	Children,
-	NavigationToggle,
-	DocumentNavigationContainer,
-} from './components/body'
-import Footer from './components/footer'
-import { withPrefix } from 'gatsby'
-import { useDebouncedCallback } from 'use-debounce'
-
-import ChevronRightIcon from 'feather-icons/dist/icons/chevron-right.svg'
-import ChevronDownIcon from 'feather-icons/dist/icons/chevron-down.svg'
-import MenuIcon from 'feather-icons/dist/icons/menu.svg'
-import CloseMenuIcon from 'feather-icons/dist/icons/x.svg'
-import DocumentIcon from 'feather-icons/dist/icons/file-text.svg'
-import DownloadIcon from 'feather-icons/dist/icons/download.svg'
-import VideoIcon from 'feather-icons/dist/icons/video.svg'
-import { SearchBar } from '../search/SearchBar'
 import algoliasearch from 'algoliasearch/lite'
-import { ShowSearchResult } from '../search/ShowSearchResult'
+import { Page } from '../content'
+import { DocumentNavigation } from '../navigation/DocumentNavigation'
+import { Navigation } from '../navigation/Navigation'
+import styled from 'styled-components'
+import {
+	wideBreakpoint,
+	mobileBreakpoint,
+	darkBlue,
+	lightBlue,
+	softPurple,
+	sunshine,
+	ultrawideBreakpoint,
+	ink,
+} from './settings'
 
 const algoliaClient = algoliasearch(
 	process.env.GATSBY_ALGOLIA_APP_ID || '',
@@ -34,41 +24,96 @@ const algoliaClient = algoliasearch(
 )
 const pagesIndex = algoliaClient.initIndex('Pages')
 
-export enum MimeType {
-	pdf = 'application/pdf',
-	video = 'video/mp4',
-	document = 'application/vnd.google-apps.document',
-}
-
-export type PageHeading = {
-	id: string
-	depth: number
-	value: string
-}
-
-export type PageContent = {
-	id: string
-	name: string
-	folder?: string[]
-	slug: string
-	driveId: string
-	title: string
-	url?: string
-	mimeType: MimeType
-	remark?: {
-		htmlAst: string
-		headings: PageHeading[]
+const BodyContainer = styled.div`
+	display: flex;
+	flex-direction: column-reverse;
+	@media (min-width: ${wideBreakpoint}) {
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: 1fr ${mobileBreakpoint} 1fr;
+		grid-template-rows: 1fr;
+		gap: 0 2rem;
 	}
-}
-
-export type Page = {
-	path: string
-	location: URL
-	pageContext: {
-		page: PageContent
-		guidePages: PageContent[]
+	@media (min-width: ${ultrawideBreakpoint}) {
+		grid-template-columns: 1fr ${wideBreakpoint} 1fr;
+		gap: 0 4rem;
 	}
-}
+`
+
+const Main = styled.main`
+	margin: 2rem 1rem;
+	img {
+		max-width: 100%;
+	}
+	@media (min-width: ${wideBreakpoint}) {
+		grid-column: 2;
+		grid-row: 1;
+		margin-bottom: 4rem;
+	}
+	color: ${darkBlue};
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		font-weight: 300;
+		font-style: italic;
+		text-transform: uppercase;
+		margin-top: 3rem;
+		&:first-child {
+			margin-top: 0;
+		}
+	}
+	h1 {
+		font-size: 3rem;
+	}
+	h2 {
+		font-size: 2.5rem;
+	}
+	h3 {
+		font-size: 2rem;
+	}
+	h4 {
+		font-size: 1.5rem;
+	}
+	a {
+		color: ${lightBlue};
+		&:visited {
+			color: ${softPurple};
+		}
+	}
+	p,
+	li {
+		line-height: 1.75rem;
+		font-size: 1.25rem;
+	}
+	blockquote {
+		background-color: ${sunshine};
+		margin: -2rem -1rem 2rem -1rem;
+		padding: 0.01rem 1rem;
+		@media (min-width: ${wideBreakpoint}) {
+			padding: 1rem 2rem;
+			margin: 2rem 0 0 0;
+		}
+	}
+`
+
+const Footer = styled.footer`
+	padding: 2rem;
+	background: linear-gradient(to right, ${ink} 25%, ${darkBlue} 100%);
+	color: #ffffff;
+	font-size: 1.25rem;
+	text-align: center;
+	a {
+		color: inherit;
+		text-decoration: underline;
+		text-decoration-color: #ffffff80;
+		&:visited {
+			color: inherit;
+		}
+	}
+`
 
 export const query = graphql`
 	query PageTemplateQuery {
@@ -81,183 +126,6 @@ export const query = graphql`
 		}
 	}
 `
-
-type Folder = {
-	label: string
-	children: (PageContent | Folder)[]
-}
-
-const buildTree = (
-	pages: PageContent[],
-	level = 0,
-	parentFolder?: string[],
-): (PageContent | Folder)[] => [
-	...pages.filter(
-		({ folder }) => folder?.join('/') === (parentFolder?.join('/') ?? ''),
-	),
-	...[
-		...new Set(
-			pages
-				.filter(({ folder }) => folder?.[level])
-				.filter(({ folder }) =>
-					folder?.join('/').startsWith(parentFolder?.join('/') ?? ''),
-				)
-				.map(({ folder }) => folder?.[level]) as string[],
-		),
-	].map((label) => ({
-		label,
-		children: buildTree(pages, level + 1, [...(parentFolder ?? []), label]),
-	})),
-]
-
-export const LinkEntry = ({ page }: { page: PageContent }) => {
-	if (page.mimeType === MimeType.pdf || page.mimeType === MimeType.video) {
-		return (
-			<PageName>
-				<a href={page.url} target="_blank" rel="noopener noreferrer">
-					{page.mimeType === MimeType.pdf && <DownloadIcon />}
-					{page.mimeType === MimeType.video && <VideoIcon />}
-					{page.name}
-				</a>
-			</PageName>
-		)
-	}
-	return (
-		<PageName>
-			<a href={withPrefix(page.slug)}>
-				<DocumentIcon />
-				{page.name}
-			</a>
-		</PageName>
-	)
-}
-
-const NavigationFolder = ({
-	folder,
-	currentPage,
-	parents,
-}: {
-	folder: Folder
-	currentPage: PageContent
-	parents?: Folder[]
-}) => {
-	const [visible, setVisible] = useState(
-		currentPage.folder
-			?.join('/')
-			.startsWith(
-				[...(parents?.map(({ label }) => label) ?? []), folder.label].join('/'),
-			),
-	)
-	if (folder.children?.length === 0) return null
-	return (
-		<Folder className={visible ? 'open' : 'closed'}>
-			<FolderName onClick={() => setVisible((v) => !v)}>
-				{folder.label}
-				{visible && <ChevronDownIcon />}
-				{!visible && <ChevronRightIcon />}
-			</FolderName>
-			{visible && (
-				<Children>
-					{folder.children
-						.filter((entry) => 'children' in entry)
-						.map((entry, key) => (
-							<NavigationFolder
-								key={key}
-								folder={entry as Folder}
-								currentPage={currentPage}
-								parents={[...(parents ?? []), folder]}
-							/>
-						))}
-					{folder.children
-						.filter((entry) => !('children' in entry))
-						.map((page, key) => (
-							<LinkEntry key={key} page={page as PageContent} />
-						))}
-				</Children>
-			)}
-		</Folder>
-	)
-}
-
-const Navigation = ({
-	guidePages,
-	currentPage,
-	onSearch,
-	onClear,
-	searchResult,
-}: {
-	guidePages: PageContent[]
-	currentPage: PageContent
-	onSearch: (query: string) => void
-	onClear: () => void
-	searchResult: { objectID: string }[]
-}) => {
-	const pageTree = buildTree(guidePages)
-	const [menuVisible, setMenuVisible] = useState(false)
-	return (
-		<GuideNavigation className={menuVisible ? 'visible' : 'hidden'}>
-			<NavigationToggle onClick={() => setMenuVisible((v) => !v)}>
-				Menu
-				{menuVisible ? (
-					<button title="Hide menu">
-						<CloseMenuIcon />
-					</button>
-				) : (
-					<button title="Show menu">
-						<MenuIcon />
-					</button>
-				)}
-			</NavigationToggle>
-			<SearchBar onSearch={onSearch} onClear={onClear} />
-			{searchResult && (
-				<ShowSearchResult searchResult={searchResult} guidePages={guidePages} />
-			)}
-			<PageName>
-				<a href="/" title="Go to the start page">
-					<DocumentIcon />
-					Home
-				</a>
-			</PageName>
-			{pageTree
-				.filter((entry) => !('children' in entry))
-				.map((page, key) => (
-					<LinkEntry key={key} page={page as PageContent} />
-				))}
-			{pageTree
-				.filter((entry) => 'children' in entry)
-				.map((entry, key) => (
-					<NavigationFolder
-						key={key}
-						folder={entry as Folder}
-						currentPage={currentPage}
-					/>
-				))}
-		</GuideNavigation>
-	)
-}
-
-const DocumentNavigation = ({ headings }: { headings: PageHeading[] }) => {
-	if (!headings.length) return null
-	const [scrollTop, setScrollTop] = useState(0)
-	const top = document.getElementsByTagName('header')?.[0]?.clientHeight ?? 0
-	const [debounceOnScroll] = useDebouncedCallback(() => {
-		setScrollTop(window.scrollY)
-	}, 250)
-	useEffect(() => {
-		window.onscroll = debounceOnScroll
-	}, [window])
-	return (
-		<DocumentNavigationContainer
-			style={{ paddingTop: Math.max(0, scrollTop - top) }}
-		>
-			{headings.map(({ id, depth, value }, key) => (
-				<a href={`#${id}`} key={key} className={`level-${depth}`}>
-					{value}
-				</a>
-			))}
-		</DocumentNavigationContainer>
-	)
-}
 
 const PageTemplate = (
 	data: Page & {
@@ -294,7 +162,8 @@ const PageTemplate = (
 					/>
 				)}
 				<Main>
-					{renderHtmlAstToReact(data.pageContext.page.remark?.htmlAst)}
+					{data.pageContext.page.remark?.htmlAst &&
+						renderHtmlAstToReact(data.pageContext.page.remark.htmlAst)}
 				</Main>
 				<Navigation
 					guidePages={data.pageContext.guidePages}
