@@ -11,6 +11,7 @@ env:
   GATSBY_ALGOLIA_APP_ID: ${{ secrets.GATSBY_ALGOLIA_APP_ID }}
   GATSBY_ALGOLIA_SEARCH_KEY: ${{ secrets.GATSBY_ALGOLIA_SEARCH_KEY }}
   ALGOLIA_ADMIN_KEY: ${{ secrets.ALGOLIA_ADMIN_KEY }}
+  CNAME: resources.distributeaid.org
 
 jobs:
   publish:
@@ -28,10 +29,6 @@ jobs:
         with:
           path: ~/.npm
           key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.OS }}-build-${{ env.cache-name }}-
-            ${{ runner.OS }}-build-
-            ${{ runner.OS }}-
       - name: Install dependencies
         run: npm ci --no-audit
       - name: Export credentials
@@ -55,9 +52,7 @@ jobs:
           mkdir export
           node export-to-markdown.js
       - name: Build
-        run: |
-          export SITE_DIR=covid-19-resources-drive-export
-          npx gatsby build --prefix-paths
+        run: npx gatsby build --prefix-paths
       - name: Publish export to gh-pages
         if: contains(github.ref, 'saga')
         run: |
@@ -66,8 +61,9 @@ jobs:
           git config --global user.name "GitHub Actions"
           zip -r public/export.zip export
           cd public
+          echo ${CNAME} > CNAME
           git init
           git add ./*
-          git commit -m 'latest export'
+          git commit -m '📦 publish latest export'
           git remote add origin https://github.com/${GITHUB_REPOSITORY}.git
           git push -f origin HEAD:gh-pages
