@@ -6,7 +6,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "snyk-protect": "snyk protect",
     "prepare": "npm run snyk-protect",
-    "postinstall": "check-node-version --package"
+    "postinstall": "check-node-version --package",
+    "lint": "eslint --ext .js,.ts,.tsx src"
   },
   "keywords": [
     "Distribute Aid",
@@ -23,11 +24,11 @@
     "algoliasearch": "^4.2.0",
     "feather-icons": "^4.28.0",
     "gatsby-plugin-algolia": "^0.11.0",
-    "gatsby-remark-autolink-headers": "^2.3.2",
+    "gatsby-remark-autolink-headers": "^2.3.3",
     "googleapis": "^51.0.0",
     "jsdom": "^16.2.2",
     "react-instantsearch-dom": "^6.5.0",
-    "snyk": "^1.321.0",
+    "snyk": "^1.332.1",
     "use-debounce": "^3.4.2"
   },
   "snyk": true,
@@ -36,8 +37,8 @@
     "npm": ">=6.0.0"
   },
   "devDependencies": {
-    "@bifravst/code-style": "^7.1.11",
-    "@bifravst/eslint-config-typescript": "^3.3.0",
+    "@bifravst/code-style": "^8.0.0",
+    "@bifravst/eslint-config-typescript": "^5.0.1",
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-angular": "^8.3.4",
     "@types/react-helmet": "^6.0.0",
@@ -46,24 +47,24 @@
     "bottleneck": "^2.19.5",
     "check-node-version": "^4.0.3",
     "eslint-plugin-react": "^7.20.0",
-    "gatsby": "^2.21.39",
-    "gatsby-cli": "^2.12.24",
-    "gatsby-plugin-react-helmet": "^3.3.1",
+    "gatsby": "^2.22.12",
+    "gatsby-cli": "^2.12.37",
+    "gatsby-plugin-react-helmet": "^3.3.2",
     "gatsby-plugin-react-svg": "^3.0.0",
-    "gatsby-plugin-styled-components": "^3.3.1",
-    "gatsby-plugin-typescript": "^2.4.2",
-    "gatsby-source-filesystem": "^2.3.4",
-    "gatsby-transformer-remark": "^2.8.9",
-    "hast-to-hyperscript": "^8.1.0",
+    "gatsby-plugin-styled-components": "^3.3.2",
+    "gatsby-plugin-typescript": "^2.4.3",
+    "gatsby-source-filesystem": "^2.3.8",
+    "gatsby-transformer-remark": "^2.8.13",
+    "hast-to-hyperscript": "^8.1.1",
     "husky": "^4.2.5",
-    "lint-staged": "^10.2.4",
+    "lint-staged": "^10.2.7",
     "prettier": "^2.0.5",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.0.0",
     "sanitize-filename": "^1.6.3",
-    "styled-components": "^5.1.0",
-    "ts-node": "^8.10.1",
-    "typescript": "^3.9.2"
+    "styled-components": "^5.1.1",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.3"
   },
   "husky": {
     "hooks": {

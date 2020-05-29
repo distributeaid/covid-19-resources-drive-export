@@ -20,7 +20,7 @@ export type PageContent = {
 	url?: string
 	mimeType: MimeType
 	remark?: {
-		htmlAst: string
+		htmlAst: any
 		headings: PageHeading[]
 	}
 }

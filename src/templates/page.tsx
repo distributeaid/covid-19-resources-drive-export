@@ -19,8 +19,8 @@ import {
 } from './settings'
 
 const algoliaClient = algoliasearch(
-	process.env.GATSBY_ALGOLIA_APP_ID || '',
-	process.env.GATSBY_ALGOLIA_SEARCH_KEY || '',
+	process.env.GATSBY_ALGOLIA_APP_ID ?? '',
+	process.env.GATSBY_ALGOLIA_SEARCH_KEY ?? '',
 )
 const pagesIndex = algoliaClient.initIndex('Pages')
 
@@ -162,7 +162,7 @@ const PageTemplate = (
 					/>
 				)}
 				<Main>
-					{data.pageContext.page.remark?.htmlAst &&
+					{data.pageContext.page.remark?.htmlAst !== undefined &&
 						renderHtmlAstToReact(data.pageContext.page.remark.htmlAst)}
 				</Main>
 				<Navigation

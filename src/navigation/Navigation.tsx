@@ -151,12 +151,12 @@ const NavigationFolder = ({
 	currentPage: PageContent
 	parents?: Folder[]
 }) => {
-	const [visible, setVisible] = useState(
+	const [visible, setVisible] = useState<boolean>(
 		currentPage.folder
 			?.join('/')
 			.startsWith(
 				[...(parents?.map(({ label }) => label) ?? []), folder.label].join('/'),
-			),
+			) ?? false,
 	)
 	if (folder.children?.length === 0) return null
 	return (
@@ -219,9 +219,7 @@ export const Navigation = ({
 				)}
 			</NavigationToggle>
 			<SearchBar onSearch={onSearch} onClear={onClear} />
-			{searchResult && (
-				<ShowSearchResult searchResult={searchResult} guidePages={guidePages} />
-			)}
+			<ShowSearchResult searchResult={searchResult} guidePages={guidePages} />
 			<PageName>
 				<a href={withPrefix('/')} title="Go to the start page">
 					<DocumentIcon />
