@@ -3,20 +3,23 @@ import { PageHeading } from '../content'
 import styled from 'styled-components'
 import { extrawideBreakpoint, grey } from '../templates/settings'
 
+import ClearIcon from 'feather-icons/dist/icons/x.svg'
+import MenuIcon from 'feather-icons/dist/icons/menu.svg'
+
 const DocumentNavigationContainer = styled.aside`
 	display: none;
 	@media (min-width: ${extrawideBreakpoint}) {
 		display: block;
+		margin-top: 2rem;
 	}
-	div {
+	> div {
 		display: flex;
 		flex-direction: column;
-		margin-top: 3rem;
 	}
 	&.scrolling {
-		div {
+		> div {
 			position: fixed;
-			top: 0;
+			top: 2rem;
 		}
 	}
 	a {
@@ -44,6 +47,18 @@ const DocumentNavigationContainer = styled.aside`
 	}
 `
 
+const ToggleButton = styled.button`
+	background: 0;
+	border: 0;
+	padding: 0;
+	opacity: 0.5;
+`
+
+const Toggle = styled.div`
+	display: flex;
+	flex-direction: row;
+`
+
 const windowGlobal = (typeof window !== 'undefined' && window) || undefined
 
 export const DocumentNavigation = ({
@@ -53,6 +68,11 @@ export const DocumentNavigation = ({
 }) => {
 	if (!headings.length) return null
 	const [scrollTop, setScrollTop] = useState(0)
+	const [showMenu, setShowMenu] = useState(
+		windowGlobal?.localStorage.getItem(
+			'resources:content-navigation:closed',
+		) !== '1',
+	)
 	const top =
 		windowGlobal?.document.getElementsByTagName('header')?.[0]?.clientHeight ??
 		0
@@ -63,11 +83,41 @@ export const DocumentNavigation = ({
 	return (
 		<DocumentNavigationContainer className={scrollTop > top ? 'scrolling' : ''}>
 			<div>
-				{headings.map(({ id, depth, value }, key) => (
-					<a href={`#${id}`} key={key} className={`level-${depth}`}>
-						{value}
-					</a>
-				))}
+				<Toggle>
+					{showMenu && (
+						<ToggleButton
+							title={'Hide content navigation'}
+							onClick={() => {
+								setShowMenu(false)
+								windowGlobal?.localStorage.setItem(
+									'resources:content-navigation:closed',
+									'1',
+								)
+							}}
+						>
+							<ClearIcon />
+						</ToggleButton>
+					)}
+					{!showMenu && (
+						<ToggleButton
+							title={'Show content navigation'}
+							onClick={() => {
+								setShowMenu(true)
+								windowGlobal?.localStorage.removeItem(
+									'resources:content-navigation:closed',
+								)
+							}}
+						>
+							<MenuIcon />
+						</ToggleButton>
+					)}
+				</Toggle>
+				{showMenu &&
+					headings.map(({ id, depth, value }, key) => (
+						<a href={`#${id}`} key={key} className={`level-${depth}`}>
+							{value}
+						</a>
+					))}
 			</div>
 		</DocumentNavigationContainer>
 	)
