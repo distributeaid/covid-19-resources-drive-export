@@ -38,7 +38,7 @@ which you can download:
 You can now run
 
       npm ci
-      export-to-markdown.js
+      node export-to-markdown.js
 
 to export the Google Drive contents to the `export` folder.
 
