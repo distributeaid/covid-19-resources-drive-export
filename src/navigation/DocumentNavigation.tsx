@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { useDebouncedCallback } from 'use-debounce'
 import { PageHeading } from '../content'
 import styled from 'styled-components'
 import { extrawideBreakpoint, grey } from '../templates/settings'
@@ -7,16 +6,24 @@ import { extrawideBreakpoint, grey } from '../templates/settings'
 const DocumentNavigationContainer = styled.aside`
 	display: none;
 	@media (min-width: ${extrawideBreakpoint}) {
+		display: block;
+	}
+	div {
 		display: flex;
 		flex-direction: column;
-		transition: 1s all ease;
-		margin-top: 4rem;
+		margin-top: 3rem;
+	}
+	&.scrolling {
+		div {
+			position: fixed;
+			top: 0;
+		}
 	}
 	a {
 		color: ${grey};
 		font-weight: 300;
 		text-decoration: none;
-		margin-top: 1rem;
+		margin-top: 0.5rem;
 		&.level-1 {
 		}
 		&.level-2 {
@@ -49,21 +56,19 @@ export const DocumentNavigation = ({
 	const top =
 		windowGlobal?.document.getElementsByTagName('header')?.[0]?.clientHeight ??
 		0
-	const [debounceOnScroll] = useDebouncedCallback(() => {
-		setScrollTop(window.scrollY)
-	}, 250)
 	useEffect(() => {
-		if (windowGlobal) windowGlobal.onscroll = debounceOnScroll
+		if (windowGlobal) windowGlobal.onscroll = () => setScrollTop(window.scrollY)
 	}, [windowGlobal])
+
 	return (
-		<DocumentNavigationContainer
-			style={{ paddingTop: Math.max(0, scrollTop - top) }}
-		>
-			{headings.map(({ id, depth, value }, key) => (
-				<a href={`#${id}`} key={key} className={`level-${depth}`}>
-					{value}
-				</a>
-			))}
+		<DocumentNavigationContainer className={scrollTop > top ? 'scrolling' : ''}>
+			<div>
+				{headings.map(({ id, depth, value }, key) => (
+					<a href={`#${id}`} key={key} className={`level-${depth}`}>
+						{value}
+					</a>
+				))}
+			</div>
 		</DocumentNavigationContainer>
 	)
 }
