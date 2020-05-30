@@ -11,7 +11,7 @@ const LinkContainer = styled.div`
 	flex-direction: column;
 	max-height: 100%;
 	overflow: hidden;
-	overflow-y: scroll;
+	overflow-y: auto;
 `
 
 const NavigationWithMenu = styled.div``
