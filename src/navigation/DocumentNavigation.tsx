@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { PageHeading } from '../content'
 import styled from 'styled-components'
 import { extrawideBreakpoint, grey } from '../templates/settings'
@@ -6,18 +6,24 @@ import { extrawideBreakpoint, grey } from '../templates/settings'
 import ClearIcon from 'feather-icons/dist/icons/x.svg'
 import MenuIcon from 'feather-icons/dist/icons/menu.svg'
 
+const LinkContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	max-height: 100%;
+	overflow: hidden;
+	overflow-y: scroll;
+`
+
+const NavigationWithMenu = styled.div``
+
 const DocumentNavigationContainer = styled.aside`
 	display: none;
 	@media (min-width: ${extrawideBreakpoint}) {
 		display: block;
 		margin-top: 2rem;
 	}
-	> div {
-		display: flex;
-		flex-direction: column;
-	}
 	&.scrolling {
-		> div {
+		${NavigationWithMenu} {
 			position: fixed;
 			top: 2rem;
 		}
@@ -67,7 +73,12 @@ export const DocumentNavigation = ({
 	headings: PageHeading[]
 }) => {
 	if (!headings.length) return null
+
+	// We need to calculate the maximum height for the LinkContainer, which is the space on the righthand side minus the header and the footer (if visible).
+	// This is needed to deal with documents that have a lot of entries and are displayed on small screens.
+	const linkContainerRef = useRef<HTMLDivElement>(null)
 	const [scrollTop, setScrollTop] = useState(0)
+	const [footerSize, setFooterSize] = useState(0)
 	const [showMenu, setShowMenu] = useState(
 		windowGlobal?.localStorage.getItem(
 			'resources:content-navigation:closed',
@@ -76,13 +87,32 @@ export const DocumentNavigation = ({
 	const top =
 		windowGlobal?.document.getElementsByTagName('header')?.[0]?.clientHeight ??
 		0
+	const linkContainerTop =
+		linkContainerRef.current?.getBoundingClientRect().top ?? 0
+	const height = windowGlobal?.innerHeight ?? Number.MAX_SAFE_INTEGER
+	const maxLinkContainerHeight = Math.floor(
+		height - linkContainerTop - footerSize,
+	)
+
 	useEffect(() => {
-		if (windowGlobal) windowGlobal.onscroll = () => setScrollTop(window.scrollY)
+		if (windowGlobal)
+			windowGlobal.onscroll = () => {
+				setScrollTop(window.scrollY)
+				setFooterSize(
+					Math.max(
+						0,
+						(windowGlobal?.innerHeight ?? 0) -
+							(windowGlobal?.document
+								.getElementsByTagName('footer')?.[0]
+								?.getBoundingClientRect().top ?? 0),
+					),
+				)
+			}
 	}, [windowGlobal])
 
 	return (
 		<DocumentNavigationContainer className={scrollTop > top ? 'scrolling' : ''}>
-			<div>
+			<NavigationWithMenu>
 				<Toggle>
 					{showMenu && (
 						<ToggleButton
@@ -112,13 +142,18 @@ export const DocumentNavigation = ({
 						</ToggleButton>
 					)}
 				</Toggle>
-				{showMenu &&
-					headings.map(({ id, depth, value }, key) => (
-						<a href={`#${id}`} key={key} className={`level-${depth}`}>
-							{value}
-						</a>
-					))}
-			</div>
+				<LinkContainer
+					ref={linkContainerRef}
+					style={{ maxHeight: maxLinkContainerHeight }}
+				>
+					{showMenu &&
+						headings.map(({ id, depth, value }, key) => (
+							<a href={`#${id}`} key={key} className={`level-${depth}`}>
+								{value}
+							</a>
+						))}
+				</LinkContainer>
+			</NavigationWithMenu>
 		</DocumentNavigationContainer>
 	)
 }
