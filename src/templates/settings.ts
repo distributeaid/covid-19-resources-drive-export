@@ -1,4 +1,4 @@
-export const mobileBreakpoint = '600px'
+export const mobileBreakpoint = '680px'
 export const wideBreakpoint = '900px'
 export const extrawideBreakpoint = '1200px'
 export const ultrawideBreakpoint = '1600px'
