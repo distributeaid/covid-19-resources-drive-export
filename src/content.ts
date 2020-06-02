@@ -16,6 +16,7 @@ export type PageContent = {
 	folder?: string[]
 	slug: string
 	driveId: string
+	modifiedTime: string
 	title: string
 	url?: string
 	mimeType: MimeType

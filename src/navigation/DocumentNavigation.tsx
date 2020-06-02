@@ -103,7 +103,7 @@ export const DocumentNavigation = ({
 						0,
 						(windowGlobal?.innerHeight ?? 0) -
 							(windowGlobal?.document
-								.getElementsByTagName('footer')?.[0]
+								.getElementById('mainFooter')
 								?.getBoundingClientRect().top ?? 0),
 					),
 				)

@@ -18,6 +18,16 @@ const GlobalStyle = createGlobalStyle`
       body {
         font-family: "Lato", sans-serif;
       }
+	  .noprint {
+		  @media print {
+			  display: none;
+		  }
+	  }
+	  .noscreen {
+		  @media screen {
+			  display: none;
+		  }
+	  }
 `
 
 const StyledHeader = styled.header`

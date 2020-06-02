@@ -29,6 +29,7 @@ exports.createPages = ({ graphql, actions: { createPage } }) =>
 							htmlAst
 							frontmatter {
 								driveId
+								modifiedTime
 								title
 								url
 								mimeType
@@ -85,6 +86,7 @@ exports.createPages = ({ graphql, actions: { createPage } }) =>
 						folder: relativeDirectory?.split('/') ?? [],
 						slug,
 						driveId: childMarkdownRemark?.frontmatter?.driveId,
+						modifiedTime: childMarkdownRemark?.frontmatter?.modifiedTime,
 						title: childMarkdownRemark?.frontmatter?.title,
 						url: childMarkdownRemark?.frontmatter?.url,
 						mimeType: childMarkdownRemark?.frontmatter?.mimeType,

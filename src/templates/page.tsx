@@ -17,6 +17,7 @@ import {
 	ultrawideBreakpoint,
 	ink,
 } from './settings'
+import { GuideFooter } from './GuideFooter'
 
 const algoliaClient = algoliasearch(
 	process.env.GATSBY_ALGOLIA_APP_ID ?? '',
@@ -164,6 +165,7 @@ const PageTemplate = (
 				<Main>
 					{data.pageContext.page.remark?.htmlAst !== undefined &&
 						renderHtmlAstToReact(data.pageContext.page.remark.htmlAst)}
+					<GuideFooter {...data.pageContext.page} />
 				</Main>
 				<Navigation
 					guidePages={data.pageContext.guidePages}
@@ -176,7 +178,7 @@ const PageTemplate = (
 				/>
 			</BodyContainer>
 
-			<Footer>
+			<Footer id={'mainFooter'}>
 				<p>
 					Contact:{' '}
 					<a href="mailto:hello@distributeaid.org">hello@distributeaid.org</a>

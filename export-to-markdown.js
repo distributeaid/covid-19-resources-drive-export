@@ -35,7 +35,8 @@ const listFiles = (parentFolder, parents = []) => async (auth) =>
 						.map((type) => `mimeType = '${type}'`)
 						.join(' or ')})`,
 					pageSize: 100,
-					fields: 'nextPageToken, files(id, name, mimeType, webViewLink)',
+					fields:
+						'nextPageToken, files(id, name, mimeType, webViewLink, modifiedTime)',
 				}),
 			)
 			.then((res) => {
@@ -44,7 +45,14 @@ const listFiles = (parentFolder, parents = []) => async (auth) =>
 				return Promise.all(
 					files.map(async (file) => {
 						if (file.mimeType === 'application/vnd.google-apps.document') {
-							await exportFile(file.id, file.name, file.mimeType, parents, auth)
+							await exportFile(
+								file.id,
+								file.name,
+								file.mimeType,
+								file.modifiedTime,
+								parents,
+								auth,
+							)
 						} else if (file.mimeType === 'application/vnd.google-apps.folder') {
 							await listFiles(file.id, [...parents, file.name.trim()])(auth)
 						} else {
@@ -54,6 +62,7 @@ const listFiles = (parentFolder, parents = []) => async (auth) =>
 								file.mimeType,
 								parents,
 								file.webViewLink,
+								file.modifiedTime,
 							)
 						}
 					}),
@@ -68,6 +77,7 @@ const exportFileLink = async (
 	mimeType,
 	parents,
 	downloadUrl,
+	modifiedTime,
 ) => {
 	const folder = path.join(...exportDir, ...parents.map(sanitize))
 	const outFile = path.join(folder, `${sanitize(title)}.md`)
@@ -78,6 +88,7 @@ const exportFileLink = async (
 			'---',
 			`title: "${title}"`,
 			`driveId: ${fileId}`,
+			`modifiedTime: ${modifiedTime}`,
 			`mimeType: ${mimeType}`,
 			`url: ${downloadUrl}`,
 			'---',
@@ -90,7 +101,14 @@ const exportFileLink = async (
 	console.log(outFile, 'written')
 }
 
-const exportFile = async (fileId, title, mimeType, parents, auth) => {
+const exportFile = async (
+	fileId,
+	title,
+	mimeType,
+	modifiedTime,
+	parents,
+	auth,
+) => {
 	const drive = google.drive({ version: 'v3', auth })
 	const folder = path.join(...exportDir, ...parents.map(sanitize))
 	const outFile = path.join(folder, `${sanitize(title)}.md`)
@@ -139,6 +157,7 @@ const exportFile = async (fileId, title, mimeType, parents, auth) => {
 						`title: "${title}"`,
 						`driveId: ${fileId}`,
 						`mimeType: ${mimeType}`,
+						`modifiedTime: ${modifiedTime}`,
 						'---',
 						'',
 						markdown,
