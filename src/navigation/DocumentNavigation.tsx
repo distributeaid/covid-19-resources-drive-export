@@ -51,6 +51,9 @@ const DocumentNavigationContainer = styled.aside`
 			margin-left: 5rem;
 		}
 	}
+	@media print {
+		display: none;
+	}
 `
 
 const ToggleButton = styled.button`

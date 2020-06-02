@@ -91,6 +91,9 @@ const GuideNavigation = styled.nav`
 	@media (min-width: ${ultrawideBreakpoint}) {
 		padding: 2rem 0 4rem 2rem;
 	}
+	@media print {
+		display: none;
+	}
 `
 
 const FolderContainer = styled.div`

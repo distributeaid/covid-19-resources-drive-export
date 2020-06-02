@@ -33,6 +33,10 @@ const GlobalStyle = createGlobalStyle`
 const StyledHeader = styled.header`
 	background: linear-gradient(to right, ${ink} 25%, ${darkBlue} 100%);
 
+	@media print {
+		display: none;
+	}
+
 	h1 {
 		font-weight: 300;
 		font-style: italic;

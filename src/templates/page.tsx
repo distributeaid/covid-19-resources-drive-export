@@ -39,6 +39,10 @@ const BodyContainer = styled.div`
 		grid-template-columns: 1fr ${wideBreakpoint} 1fr;
 		gap: 0 4rem;
 	}
+	@media print {
+		grid-template-columns: 0 100% 0;
+		margin: 1in;
+	}
 `
 
 const Main = styled.main`
@@ -113,6 +117,9 @@ const Footer = styled.footer`
 		&:visited {
 			color: inherit;
 		}
+	}
+	@media print {
+		display: none;
 	}
 `
 
