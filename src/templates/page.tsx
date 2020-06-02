@@ -172,7 +172,9 @@ const PageTemplate = (
 				<Main>
 					{data.pageContext.page.remark?.htmlAst !== undefined &&
 						renderHtmlAstToReact(data.pageContext.page.remark.htmlAst)}
-					<GuideFooter {...data.pageContext.page} />
+					{data.pageContext.page.driveId !== null && (
+						<GuideFooter {...data.pageContext.page} />
+					)}
 				</Main>
 				<Navigation
 					guidePages={data.pageContext.guidePages}

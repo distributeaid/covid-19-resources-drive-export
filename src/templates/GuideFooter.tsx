@@ -69,18 +69,20 @@ const Copyright = () => (
 export const GuideFooter = ({ driveId, modifiedTime }: PageContent) => (
 	<Footer>
 		<HR />
-		<P>
-			<LastUpdatedIcon />
-			<span>
-				Last updated:{' '}
-				<time dateTime={modifiedTime} className={'noprint'}>
-					{formatDistanceToNow(new Date(modifiedTime))} ago
-				</time>
-				<time dateTime={modifiedTime} className={'noscreen'}>
-					{modifiedTime}
-				</time>
-			</span>
-		</P>
+		{modifiedTime !== null && (
+			<P>
+				<LastUpdatedIcon />
+				<span>
+					Last updated:{' '}
+					<time dateTime={modifiedTime} className={'noprint'}>
+						{formatDistanceToNow(new Date(modifiedTime))} ago
+					</time>
+					<time dateTime={modifiedTime} className={'noscreen'}>
+						{modifiedTime}
+					</time>
+				</span>
+			</P>
+		)}
 		<P className={'noprint'}>
 			<FeedbackIcon />
 			<span>
