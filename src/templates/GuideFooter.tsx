@@ -69,7 +69,7 @@ const Copyright = () => (
 export const GuideFooter = ({ driveId, modifiedTime }: PageContent) => (
 	<Footer>
 		<HR />
-		{modifiedTime !== null && (
+		{modifiedTime !== undefined && (
 			<P>
 				<LastUpdatedIcon />
 				<span>
