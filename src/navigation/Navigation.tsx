@@ -14,6 +14,7 @@ import { withPrefix } from 'gatsby'
 import { SearchBar } from '../search/SearchBar'
 import { ShowSearchResult } from '../search/ShowSearchResult'
 import { SearchInputContainer } from '../search/SearchBar'
+import { SearchResult } from '../templates/page'
 
 import ChevronRightIcon from 'feather-icons/dist/icons/chevron-right.svg'
 import ChevronDownIcon from 'feather-icons/dist/icons/chevron-down.svg'
@@ -22,7 +23,7 @@ import VideoIcon from 'feather-icons/dist/icons/video.svg'
 import MenuIcon from 'feather-icons/dist/icons/menu.svg'
 import CloseMenuIcon from 'feather-icons/dist/icons/x.svg'
 import DocumentIcon from 'feather-icons/dist/icons/file-text.svg'
-import { SearchResult } from '../templates/page'
+import LegalIcon from 'feather-icons/dist/icons/info.svg'
 
 const FolderName = styled.p`
 	text-transform: uppercase;
@@ -246,6 +247,12 @@ export const Navigation = ({
 						currentPage={currentPage}
 					/>
 				))}
+			<PageName>
+				<a href={withPrefix('/PrivacyPolicy')}>
+					<LegalIcon />
+					Privacy Policy
+				</a>
+			</PageName>
 		</GuideNavigation>
 	)
 }
