@@ -5,6 +5,19 @@ import styled from 'styled-components'
 import { ink } from '../templates/settings'
 import { SearchResult } from '../templates/page'
 
+import AlgoliaLogo from '../search-by-algolia-light-background.svg'
+
+const AlgoliaFooter = styled.div`
+	display: flex;
+	flex-direction: row-reverse;
+	svg {
+		height: 24px;
+		opacity: 0.5;
+		margin-bottom: 1rem;
+		margin-right: 1rem;
+	}
+`
+
 const SearchResultList = styled.div`
 	border-bottom: 1px solid ${ink}33;
 `
@@ -20,7 +33,7 @@ export const ShowSearchResult = ({
 		return (
 			<SearchResultList>
 				<p>
-					<em>No result found for &quot;{searchResult.query}&quot;.</em>
+					<em>No result found for &quot;{searchResult.query}&quot;. </em>
 				</p>
 			</SearchResultList>
 		)
@@ -34,6 +47,15 @@ export const ShowSearchResult = ({
 			{matches.map((p, key) => (
 				<LinkEntry key={key} page={p} />
 			))}
+			<AlgoliaFooter>
+				<a
+					href="https://www.algolia.com/"
+					target="_blank"
+					rel="noreferrer noopener"
+				>
+					<AlgoliaLogo />
+				</a>
+			</AlgoliaFooter>
 		</SearchResultList>
 	)
 }

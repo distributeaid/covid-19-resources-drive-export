@@ -57,7 +57,7 @@ export const SearchBar = ({
 				value={query}
 				onChange={({ target: { value } }) => {
 					updateQuery(value)
-					if (value.trim().length > 3) {
+					if (value.trim().length >= 3) {
 						debouncedOnSearch()
 					}
 				}}
