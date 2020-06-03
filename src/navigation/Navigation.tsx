@@ -22,6 +22,7 @@ import VideoIcon from 'feather-icons/dist/icons/video.svg'
 import MenuIcon from 'feather-icons/dist/icons/menu.svg'
 import CloseMenuIcon from 'feather-icons/dist/icons/x.svg'
 import DocumentIcon from 'feather-icons/dist/icons/file-text.svg'
+import { SearchResult } from '../templates/page'
 
 const FolderName = styled.p`
 	text-transform: uppercase;
@@ -203,7 +204,7 @@ export const Navigation = ({
 	currentPage: PageContent
 	onSearch: (query: string) => void
 	onClear: () => void
-	searchResult: { objectID: string }[]
+	searchResult?: SearchResult
 }) => {
 	const pageTree = buildTree(guidePages)
 	const [menuVisible, setMenuVisible] = useState(false)
@@ -222,7 +223,9 @@ export const Navigation = ({
 				)}
 			</NavigationToggle>
 			<SearchBar onSearch={onSearch} onClear={onClear} />
-			<ShowSearchResult searchResult={searchResult} guidePages={guidePages} />
+			{searchResult !== undefined && (
+				<ShowSearchResult searchResult={searchResult} guidePages={guidePages} />
+			)}
 			<PageName>
 				<a href={withPrefix('/')} title="Go to the start page">
 					<DocumentIcon />

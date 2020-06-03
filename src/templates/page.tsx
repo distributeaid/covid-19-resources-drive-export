@@ -135,6 +135,11 @@ export const query = graphql`
 	}
 `
 
+export type SearchResult = {
+	query: string
+	matches: { objectID: string }[]
+}
+
 const PageTemplate = (
 	data: Page & {
 		data: {
@@ -144,15 +149,16 @@ const PageTemplate = (
 		}
 	},
 ) => {
-	const [searchResult, updateSearchResult] = useState<{ objectID: string }[]>(
-		[],
-	)
+	const [searchResult, updateSearchResult] = useState<SearchResult>()
 
 	const onSearch = (query: string) => {
 		pagesIndex
 			.search(query, { attributesToRetrieve: ['objectID'] })
 			.then((res) => {
-				updateSearchResult(res.hits)
+				updateSearchResult({
+					query: res.query,
+					matches: res.hits,
+				})
 			})
 			.catch(console.error)
 	}
@@ -181,7 +187,7 @@ const PageTemplate = (
 					currentPage={data.pageContext.page}
 					onSearch={onSearch}
 					onClear={() => {
-						updateSearchResult([])
+						updateSearchResult(undefined)
 					}}
 					searchResult={searchResult}
 				/>

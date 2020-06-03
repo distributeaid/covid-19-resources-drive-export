@@ -3,6 +3,7 @@ import { PageContent } from '../content'
 import { LinkEntry } from '../navigation/Navigation'
 import styled from 'styled-components'
 import { ink } from '../templates/settings'
+import { SearchResult } from '../templates/page'
 
 const SearchResultList = styled.div`
 	border-bottom: 1px solid ${ink}33;
@@ -13,11 +14,21 @@ export const ShowSearchResult = ({
 	searchResult,
 }: {
 	guidePages: PageContent[]
-	searchResult: { objectID: string }[]
+	searchResult: SearchResult
 }) => {
-	if (searchResult.length === 0) return null
-	const ids = searchResult.map(({ objectID }) => objectID)
-	const matches = guidePages.filter(({ driveId }) => ids.includes(driveId))
+	if (searchResult.matches.length === 0)
+		return (
+			<SearchResultList>
+				<p>
+					<em>No result found for &quot;{searchResult.query}&quot;.</em>
+				</p>
+			</SearchResultList>
+		)
+	const ids = searchResult.matches.map(({ objectID }) => objectID)
+	const matches = guidePages.filter(
+		({ driveId }) => driveId !== undefined && ids.includes(driveId),
+	)
+
 	return (
 		<SearchResultList>
 			{matches.map((p, key) => (
