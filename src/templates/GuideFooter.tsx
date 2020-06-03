@@ -87,7 +87,11 @@ export const GuideFooter = ({ driveId, modifiedTime }: PageContent) => (
 			<FeedbackIcon />
 			<span>
 				Please provide feedback to this guide{' '}
-				<a href={`https://docs.google.com/document/d/${driveId}`}>
+				<a
+					href={`https://docs.google.com/document/d/${driveId}`}
+					target="_blank"
+					rel="noreferrer noopener"
+				>
 					in the original Google Doc
 				</a>
 				.
