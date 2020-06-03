@@ -116,6 +116,7 @@ const Header = ({
 			<title>{title}</title>
 			<meta name="description" content={description} />
 			<html lang="en" />
+			<link rel="icon" type="image/svg+xml" href={withPrefix('/favicon.svg')} />
 		</Helmet>
 		<GlobalStyle />
 		<StyledHeader>
