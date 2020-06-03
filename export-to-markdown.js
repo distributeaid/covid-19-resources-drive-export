@@ -1,4 +1,4 @@
-const fs = require('fs')
+const fs = require('fs').promises
 const path = require('path')
 const { google } = require('googleapis')
 const { cleanHTML } = require('./cleanHTML')
@@ -81,8 +81,8 @@ const exportFileLink = async (
 ) => {
 	const folder = path.join(...exportDir, ...parents.map(sanitize))
 	const outFile = path.join(folder, `${sanitize(title)}.md`)
-	await fs.promises.mkdir(folder, { recursive: true })
-	await fs.promises.writeFile(
+	await fs.mkdir(folder, { recursive: true })
+	await fs.writeFile(
 		outFile,
 		[
 			'---',
@@ -112,7 +112,8 @@ const exportFile = async (
 	const drive = google.drive({ version: 'v3', auth })
 	const folder = path.join(...exportDir, ...parents.map(sanitize))
 	const outFile = path.join(folder, `${sanitize(title)}.md`)
-	fs.mkdirSync(folder, { recursive: true })
+	const outFileSource = path.join(folder, `${sanitize(title)}.html`)
+	await fs.mkdir(folder, { recursive: true })
 	await new Promise((resolve, reject) => {
 		limiter
 			.schedule(() =>
@@ -150,7 +151,7 @@ const exportFile = async (
 			)
 			.then((markdown) => prettier.format(markdown, { parser: 'markdown' }))
 			.then((markdown) =>
-				fs.promises.writeFile(
+				fs.writeFile(
 					outFile,
 					[
 						'---',
