@@ -9,12 +9,11 @@ import { Navigation } from '../navigation/Navigation'
 import styled from 'styled-components'
 import {
 	wideBreakpoint,
-	mobileBreakpoint,
 	darkBlue,
 	lightBlue,
 	softPurple,
 	sunshine,
-	ultrawideBreakpoint,
+	extrawideBreakpoint,
 	ink,
 } from './settings'
 import { GuideFooter } from './GuideFooter'
@@ -39,7 +38,7 @@ const BodyContainer = styled.main`
 		grid-template-rows: 1fr;
 		gap: 0 2rem;
 	}
-	@media (min-width: ${ultrawideBreakpoint}) {
+	@media (min-width: ${extrawideBreakpoint}) {
 		gap: 0 4rem;
 		grid-template-columns: 1fr 2fr 1fr;
 	}
@@ -48,7 +47,7 @@ const BodyContainer = styled.main`
 		margin: 1in;
 	}
 	&.document-nav-hidden {
-		@media (min-width: ${ultrawideBreakpoint}) {
+		@media (min-width: ${extrawideBreakpoint}) {
 			grid-template-columns: 1fr 3fr 50px;
 		}
 	}
