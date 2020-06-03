@@ -25,23 +25,32 @@ const algoliaClient = algoliasearch(
 )
 const pagesIndex = algoliaClient.initIndex('Pages')
 
-const BodyContainer = styled.div`
+const BodyContainer = styled.main`
 	display: flex;
 	flex-direction: column-reverse;
+	main {
+		max-width: ${wideBreakpoint};
+		margin-right: 2rem;
+	}
 	@media (min-width: ${wideBreakpoint}) {
 		margin: 0 auto;
 		display: grid;
-		grid-template-columns: 1fr ${mobileBreakpoint} 1fr;
+		grid-template-columns: 2fr 6fr;
 		grid-template-rows: 1fr;
 		gap: 0 2rem;
 	}
 	@media (min-width: ${ultrawideBreakpoint}) {
-		grid-template-columns: 1fr ${wideBreakpoint} 1fr;
 		gap: 0 4rem;
+		grid-template-columns: 1fr 2fr 1fr;
 	}
 	@media print {
 		grid-template-columns: 0 100% 0;
 		margin: 1in;
+	}
+	&.document-nav-hidden {
+		@media (min-width: ${ultrawideBreakpoint}) {
+			grid-template-columns: 1fr 3fr 50px;
+		}
 	}
 `
 
@@ -150,6 +159,9 @@ const PageTemplate = (
 	},
 ) => {
 	const [searchResult, updateSearchResult] = useState<SearchResult>()
+	const [documentNavigationVisible, setDocumentNavigationVisible] = useState(
+		true,
+	)
 
 	const onSearch = (query: string) => {
 		pagesIndex
@@ -169,10 +181,13 @@ const PageTemplate = (
 				shortTitle={data.data.site.siteMetadata.shortTitle}
 				description={data.data.site.siteMetadata.description}
 			/>
-			<BodyContainer>
+			<BodyContainer
+				className={documentNavigationVisible ? '' : 'document-nav-hidden'}
+			>
 				{data.pageContext.page.remark?.headings && (
 					<DocumentNavigation
 						headings={data.pageContext.page.remark.headings}
+						onToggle={setDocumentNavigationVisible}
 					/>
 				)}
 				<Main>

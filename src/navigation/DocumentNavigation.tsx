@@ -72,8 +72,10 @@ const windowGlobal = (typeof window !== 'undefined' && window) || undefined
 
 export const DocumentNavigation = ({
 	headings,
+	onToggle,
 }: {
 	headings: PageHeading[]
+	onToggle: (shown: boolean) => void
 }) => {
 	if (!headings.length) return null
 
@@ -87,6 +89,7 @@ export const DocumentNavigation = ({
 			'resources:content-navigation:closed',
 		) !== '1',
 	)
+	onToggle(showMenu)
 	const top =
 		windowGlobal?.document.getElementsByTagName('header')?.[0]?.clientHeight ??
 		0
