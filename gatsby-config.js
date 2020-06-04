@@ -8,7 +8,7 @@ const pJSON = JSON.parse(
 
 const siteUrl = (process.env.SITE_URL || pJSON.homepage).replace(/\//g, '')
 
-module.exports = {
+const cfg = {
 	pathPrefix: process.env.SITE_DIR,
 	siteMetadata: {
 		title: `Distribute Aid's COVID-19 Aid Workers Guide`,
@@ -42,43 +42,50 @@ module.exports = {
 		`gatsby-plugin-styled-components`,
 		`gatsby-plugin-react-helmet`,
 		`gatsby-plugin-react-svg`,
-		{
-			resolve: `gatsby-plugin-algolia`,
-			options: {
-				appId: process.env.GATSBY_ALGOLIA_APP_ID,
-				apiKey: process.env.ALGOLIA_ADMIN_KEY,
-				queries: [
-					{
-						query: `{
-							pages: allMarkdownRemark {
-							  edges {
-								node {
-								  frontmatter {
-									title
-									objectID: driveId
-								  }
-								  excerpt(pruneLength: 5000)
-								}
-							  }
-							}
-						  }`,
-						transformer: ({
-							data: {
-								pages: { edges },
-							},
-						}) =>
-							edges
-								.map(({ node: { frontmatter, ...rest } }) => ({
-									...rest,
-									...frontmatter,
-								}))
-								.filter(({ objectID }) => objectID !== null),
-						indexName: `Pages`,
-						settings: { attributesToSnippet: [`excerpt:20`] },
-					},
-				],
-				chunkSize: 10000,
-			},
-		},
 	],
 }
+
+if (process.env.ALGOLIA_DISABLE_INDEX ?? '0' === '1') {
+	console.debug('Skipping Algolia Index')
+} else {
+	cfg.plugins.push({
+		resolve: `gatsby-plugin-algolia`,
+		options: {
+			appId: process.env.GATSBY_ALGOLIA_APP_ID,
+			apiKey: process.env.ALGOLIA_ADMIN_KEY,
+			queries: [
+				{
+					query: `{
+						pages: allMarkdownRemark {
+						  edges {
+							node {
+							  frontmatter {
+								title
+								objectID: driveId
+							  }
+							  excerpt(pruneLength: 5000)
+							}
+						  }
+						}
+					  }`,
+					transformer: ({
+						data: {
+							pages: { edges },
+						},
+					}) =>
+						edges
+							.map(({ node: { frontmatter, ...rest } }) => ({
+								...rest,
+								...frontmatter,
+							}))
+							.filter(({ objectID }) => objectID !== null),
+					indexName: `Pages`,
+					settings: { attributesToSnippet: [`excerpt:20`] },
+				},
+			],
+			chunkSize: 10000,
+		},
+	})
+}
+
+module.exports = cfg
