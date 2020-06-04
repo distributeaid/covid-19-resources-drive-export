@@ -8,3 +8,4 @@
 [build.environment]
   NODE_VERSION = "14"
   ALGOLIA_DISABLE_INDEX = "1"
+  
