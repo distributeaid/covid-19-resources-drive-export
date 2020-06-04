@@ -1,0 +1,10 @@
+[build]
+    publish = "public"
+    command = '''
+    wget https://raw.githubusercontent.com/distributeaid/covid-19-resources-drive-export/gh-pages/export.zip;
+    unzip export.zip;
+    npx gatsby build --prefix-paths
+    '''
+[build.environment]
+  NODE_VERSION = "14"
+  ALGOLIA_DISABLE_INDEX = "1"
