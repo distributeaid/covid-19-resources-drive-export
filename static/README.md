@@ -2,12 +2,32 @@
 title: Distribute Aid's COVID-19 Aid Workers Guide
 ---
 
-> **Note:** If you have access to bulk food, hygiene, clothing,
-> blankets/sleeping bags, tents, or medical supplies please email
-> [hello@distributeaid.org](mailto:hello@distributeaid.org). We are looking for
-> quantities of 1 pallet or more. We can help you get them to where they are
-> most needed, and help you or your company ensure all regulations and policies
-> are followed.
+## A message from the Distribute Aid team
+
+Since End of March through the help of many volunteers our COVID-19 information
+guide quickly expanded into a full resource packet with 5 comprehensive guides
+and and 12 information sheet handouts that have been distributed through
+networks around the world.
+
+Our resources project has reached hundreds of organisers and helped jumpstart a
+number of new aid organisations in the US during the early COVID response. In
+times of crisis vulnerable factions of society are often overlooked, but your
+dedication helped provide specific resources that allowed for the continued
+protection of those who have had to flee their homes and communities.
+
+Now that aid groups have started to operate under their new guidelines and
+operational practices, we will wind down our project and only update the
+existing guides as new information becomes available.
+
+It has been amazing to see so many people come together to offer their help to
+respond to an emerging crisis. In the end, more than a hundred volunteers from
+all over the world contributed as researchers, content writers, graphic
+designers, translators, law and community advisors.
+
+From the bottom of our hearts the entire Distribute Aid team expresses their
+deepest gratitude to all that supported this project!
+
+_THANK YOU &lt;3_
 
 ## Contribute
 
@@ -20,20 +40,6 @@ Whatever the reason, we welcome your contributions!
 you are viewing and we'll work your suggestion into the daily updates. Please
 include sources or credentials for any medical facts & advice.
 
-**Submit New Materials**: We’d love to include additional guides or handouts
-that you have access to. Please share them in the
-[#project-resources](https://distributeaid.github.io/slack-invite-link/) channel
-on Slack. Include links back to the original author so we can properly credit
-them.
-
-**Help Us Research, Write, Or Translate**: We have had an amazing group of
-volunteers help us to produce these guides, and you can be one of them! If
-you’re up for some more involved work as a researcher, writer, or translator,
-then
-[introduce yourself on Slack](https://distributeaid.github.io/slack-invite-link/)
-and we'll help get you setup. Please include how you’d like to contribute and
-your availability over the next 2-4 weeks.
-
 **Review The Guides**: If you are an experienced aid worker or have medical
 training, we’d love a review to ensure we’re sharing up-to-date facts and the
 best possible advice. Feel free to comment on the Google Document versions
@@ -44,15 +50,6 @@ review.
 [our dev team on Slack](https://distributeaid.github.io/slack-invite-link/) and
 contribute to
 [this site on GitHub](https://github.com/distributeaid/covid-19-resources-drive-export).
-
-## Translate
-
-We desperately need translators to help us get this information out there to as
-many people as possible. If you are fluent in English and another language,
-please email us with what languages you speak and your availability to
-contribute on our
-[#project-resources-translation Slack](https://distributeaid.github.io/slack-invite-link/)
-channel.
 
 ## Donate
 
@@ -92,3 +89,10 @@ Since we began in January, 2019, we’ve:
 - Shipped over €1,000,000 worth of humanitarian aid
 - Increased the quality of donations on our shipments by +35%
 - Reduced the cost of our shipments by -20%
+
+> **Note:** If you have access to bulk food, hygiene, clothing,
+> blankets/sleeping bags, tents, or medical supplies please email
+> [hello@distributeaid.org](mailto:hello@distributeaid.org). We are looking for
+> quantities of 1 pallet or more. We can help you get them to where they are
+> most needed, and help you or your company ensure all regulations and policies
+> are followed.
