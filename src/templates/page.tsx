@@ -103,7 +103,7 @@ const Main = styled.main`
 	}
 	blockquote {
 		background-color: ${sunshine};
-		margin: -2rem -1rem 2rem -1rem;
+		margin: 2rem -2rem -2rem -1rem;
 		padding: 0.01rem 1rem;
 		@media (min-width: ${wideBreakpoint}) {
 			padding: 1rem 2rem;
