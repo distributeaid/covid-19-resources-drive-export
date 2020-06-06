@@ -1,6 +1,5 @@
 node_modules/
 export/
-jwt.keys.json
 public/
 .cache/
 export.zip
