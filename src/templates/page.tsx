@@ -100,6 +100,7 @@ const Main = styled.main`
 	li {
 		line-height: 1.75rem;
 		font-size: 1.25rem;
+		margin-bottom: 0.75rem;
 	}
 	blockquote {
 		background-color: ${sunshine};
