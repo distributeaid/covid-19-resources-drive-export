@@ -3,3 +3,4 @@ export/
 public/
 .cache/
 export.zip
+jwt.keys.json
