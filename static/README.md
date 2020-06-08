@@ -4,7 +4,7 @@ title: Distribute Aid's COVID-19 Aid Workers Guide
 
 ## A message from the Distribute Aid team
 
-Since End of March through the help of many volunteers our COVID-19 information
+Since the end of March through the help of many volunteers our COVID-19 information
 guide quickly expanded into a full resource packet with 5 comprehensive guides
 and 12 information sheet handouts that have been distributed through
 networks around the world.
