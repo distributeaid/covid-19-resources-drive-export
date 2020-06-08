@@ -29,7 +29,7 @@ const BodyContainer = styled.main`
 	flex-direction: column-reverse;
 	main {
 		max-width: ${wideBreakpoint};
-		margin-right: 2rem;
+		margin-right: 1rem;
 	}
 	@media (min-width: ${wideBreakpoint}) {
 		margin: 0 auto;
@@ -100,6 +100,7 @@ const Main = styled.main`
 	li {
 		line-height: 1.75rem;
 		font-size: 1.25rem;
+		margin-bottom: 0.75rem;
 	}
 	blockquote {
 		background-color: ${sunshine};
