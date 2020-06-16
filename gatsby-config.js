@@ -10,13 +10,13 @@ let indexedChecksum = ''
 let exportChecksum = ''
 try {
 	indexedChecksum = fs.readFileSync(
-		path.join(process.cwd(), '.export.indexed.checksum'),
+		path.join(process.cwd(), '.algolia', '.export.indexed.checksum'),
 		'utf-8',
 	)
 } catch {}
 try {
 	exportChecksum = fs.readFileSync(
-		path.join(process.cwd(), '.export.checksum'),
+		path.join(process.cwd(), '.algolia', '.export.checksum'),
 		'utf-8',
 	)
 } catch {}
@@ -109,7 +109,7 @@ if (process.env.ALGOLIA_DISABLE_INDEX ?? '0' === '1') {
 			)}.`,
 		)
 		fs.writeFileSync(
-			path.join(process.cwd(), '.export.indexed.checksum'),
+			path.join(process.cwd(), '.algolia', '.export.indexed.checksum'),
 			exportChecksum,
 			'utf-8',
 		)

@@ -52,11 +52,13 @@ jobs:
           mkdir export
           node export-to-markdown.js
       - name: Calculate Export Checksum
-        run: node .github/workflows/checksum.mjs ./export > ./.export.checksum
+        run: |
+          mkdir .algolia
+          node .github/workflows/checksum.mjs ./export > ./.algolia/.export.checksum
       - name: Restore Algolia Indexed Checksum
         uses: actions/cache@v1
         with:
-          path: ./.export.indexed.checksum
+          path: ./.algolia
           key: ${{ runner.OS }}-algolia
       - name: Build
         run: npx gatsby build --prefix-paths
