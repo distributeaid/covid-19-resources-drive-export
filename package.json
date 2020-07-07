@@ -27,7 +27,7 @@
     "gatsby-remark-autolink-headers": "^2.3.5",
     "googleapis": "^52.1.0",
     "jsdom": "^16.2.2",
-    "react-instantsearch-dom": "^6.5.0",
+    "react-instantsearch-dom": "^6.6.0",
     "snyk": "^1.339.3",
     "use-debounce": "^3.4.2"
   },
