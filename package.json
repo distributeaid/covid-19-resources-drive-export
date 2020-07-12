@@ -28,7 +28,7 @@
     "googleapis": "^52.1.0",
     "jsdom": "^16.2.2",
     "react-instantsearch-dom": "^6.6.0",
-    "snyk": "^1.339.3",
+    "snyk": "^1.341.1",
     "use-debounce": "^3.4.2"
   },
   "snyk": true,
