@@ -29,7 +29,7 @@
     "jsdom": "^16.2.2",
     "react-instantsearch-dom": "^6.6.0",
     "snyk": "^1.360.0",
-    "use-debounce": "^3.4.2"
+    "use-debounce": "^3.4.3"
   },
   "snyk": true,
   "engines": {
