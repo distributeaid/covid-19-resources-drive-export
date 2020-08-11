@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/distributeaid/covid-19-resources-drive-export#readme",
   "dependencies": {
-    "algoliasearch": "^4.3.0",
+    "algoliasearch": "^4.3.1",
     "feather-icons": "^4.28.0",
     "gatsby-plugin-algolia": "^0.11.1",
     "gatsby-remark-autolink-headers": "^2.3.11",
