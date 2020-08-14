@@ -5,8 +5,7 @@ on:
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  GATSBY_ALGOLIA_APP_ID: ${{ secrets.GATSBY_ALGOLIA_APP_ID }}
-  GATSBY_ALGOLIA_SEARCH_KEY: ${{ secrets.GATSBY_ALGOLIA_SEARCH_KEY }}
+  ALGOLIA_DISABLE_INDEX: 1
 
 jobs:
   build:
@@ -26,5 +25,9 @@ jobs:
           key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
         run: npm ci --no-audit
+      - name: Fetch export archive
+        run: |
+          wget https://raw.githubusercontent.com/distributeaid/covid-19-resources-drive-export/gh-pages/export.zip
+          unzip export.zip
       - name: Build
         run: npx gatsby build --prefix-paths
