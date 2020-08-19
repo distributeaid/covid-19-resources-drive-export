@@ -225,10 +225,13 @@ const PageTemplate = (
 				<p>
 					{/* We need to credit Netlify to be eligible for the open-source plan: https://www.netlify.com/legal/open-source-policy/ */}
 
-					<a href="https://www.netlify.com">
+					<a
+						href="https://www.netlify.com"
+						rel="noopener noreferrer"
+						target="_blank"
+					>
 						<img
 							alt="Deploys by Netlify"
-							target="_blank"
 							src="https://www.netlify.com/img/global/badges/netlify-color-accent.svg"
 						/>
 					</a>
