@@ -23,7 +23,7 @@
   "dependencies": {
     "algoliasearch": "^4.3.1",
     "feather-icons": "^4.28.0",
-    "gatsby-plugin-algolia": "^0.11.1",
+    "gatsby-plugin-algolia": "^0.11.2",
     "gatsby-remark-autolink-headers": "^2.3.11",
     "googleapis": "^52.1.0",
     "jsdom": "^16.3.0",
