@@ -11,6 +11,12 @@ This projects turns the content in the
 [Google Drive folder](https://drive.google.com/drive/folders/1FpnENOl1oZXLzmvvIqrR3kJgPNsGaDTo)
 into a static website using [Gatsby.js](https://www.gatsbyjs.org/)
 
+## Install dependencies
+
+After cloning the project, install dependencies:
+
+      npm ci
+
 ## Set up the export
 
 ### Using a copy of the export
@@ -40,14 +46,12 @@ which you can download:
 
 You can now run
 
-      npm ci
       node export-to-markdown.js
 
 to export the Google Drive contents to the `export` folder.
 
 ## Start Gatsby
 
-      npm ci
       npx gatsby develop
 
 ## How this project works
