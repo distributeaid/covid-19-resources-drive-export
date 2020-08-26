@@ -2,6 +2,7 @@
 
 ![Publish Export](https://github.com/distributeaid/covid-19-resources-drive-export/workflows/Publish%20Export/badge.svg?branch=saga)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/36f29c28-c785-4d29-a5de-6e4da41b3bae/deploy-status)](https://app.netlify.com/sites/covid19-aidworkers-guide/deploys)
+[![Renovate](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com)
 [![Mergify Status](https://img.shields.io/endpoint.svg?url=https://dashboard.mergify.io/badges/distributeaid/covid-19-resources-drive-export&style=flat)](https://mergify.io)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
