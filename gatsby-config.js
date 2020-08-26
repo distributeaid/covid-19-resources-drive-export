@@ -60,7 +60,11 @@ const cfg = {
 	],
 }
 
-if (process.env.ALGOLIA_DISABLE_INDEX ?? '0' === '1') {
+if (
+	(process.env.ALGOLIA_DISABLE_INDEX ?? '0' === '1') ||
+	process.env.GATSBY_ALGOLIA_APP_ID === undefined ||
+	process.env.ALGOLIA_ADMIN_KEY === undefined
+) {
 	console.debug('Skipping Algolia Index')
 } else {
 	const indexWithAlgolia = () => {
