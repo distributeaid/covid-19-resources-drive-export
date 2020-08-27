@@ -34,7 +34,7 @@
   "snyk": true,
   "engines": {
     "node": ">=14.0.0",
-    "npm": ">=6.0.0"
+    "npm": ">=6.14.8"
   },
   "devDependencies": {
     "@bifravst/code-style": "8.0.43",
