@@ -56,6 +56,12 @@ to export the Google Drive contents to the `export` folder.
 
 ## How this project works
 
+[The GitHub action](.github/workflows/publish.yaml) that runs every hour to export a Google Drive folder to GitHub pages.
+
+It downloads the folder and passes all Docs trough [a converter](./export-to-markdown.js) to turn them into Markdown (there is some fine tuning involved to remove unwanted elements and clean up HTML).
+
+It ends up as a bunch of Markdown files in the `export` folder.
+
 Gatsby is configured in [`gatsby-node.js`](./gatsby-node.js) to collect the
 markdown files in the `export` folder and turn them into pages. In addition the
 [`static/README.md`](./static/README.md) will be used as the start page.
