@@ -29,7 +29,7 @@
     "jsdom": "16.4.0",
     "react-instantsearch-dom": "6.7.0",
     "snyk": "1.387.1",
-    "use-debounce": "3.4.3"
+    "use-debounce": "4.0.0"
   },
   "snyk": true,
   "engines": {
