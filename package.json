@@ -43,7 +43,7 @@
     "@commitlint/config-angular": "9.1.2",
     "@types/react-dom": "16.9.8",
     "@types/react-helmet": "6.1.0",
-    "@types/styled-components": "5.1.2",
+    "@types/styled-components": "5.1.3",
     "babel-plugin-styled-components": "1.11.1",
     "bottleneck": "2.19.5",
     "check-node-version": "4.0.3",
