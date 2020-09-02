@@ -9,7 +9,9 @@
 
 This projects turns the content in the
 [Google Drive folder](https://drive.google.com/drive/folders/1FpnENOl1oZXLzmvvIqrR3kJgPNsGaDTo)
-into a static website using [Gatsby.js](https://www.gatsbyjs.org/)
+into a static website using [Gatsby.js](https://www.gatsbyjs.org/).
+
+Read more about this project [in this blog post](https://coderbyheart.com/covid-19-guide-for-aid-workers-built-with-gatsbyjs-from-a-google-drive/).
 
 ## Install dependencies
 
