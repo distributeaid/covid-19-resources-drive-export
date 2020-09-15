@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@bifravst/code-style": "8.0.73",
-    "@bifravst/eslint-config-typescript": "5.0.35",
+    "@bifravst/eslint-config-typescript": "5.0.36",
     "@commitlint/cli": "11.0.0",
     "@commitlint/config-angular": "11.0.0",
     "@types/react-dom": "16.9.8",
