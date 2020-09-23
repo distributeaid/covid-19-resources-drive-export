@@ -47,7 +47,7 @@
     "babel-plugin-styled-components": "1.11.1",
     "bottleneck": "2.19.5",
     "check-node-version": "4.0.3",
-    "eslint-plugin-react": "7.21.0",
+    "eslint-plugin-react": "7.21.1",
     "gatsby": "2.24.64",
     "gatsby-cli": "2.12.100",
     "gatsby-plugin-react-helmet": "3.3.11",
