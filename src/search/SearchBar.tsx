@@ -46,7 +46,7 @@ export const SearchBar = ({
 	onClear: () => void
 }) => {
 	const [query, updateQuery] = useState('')
-	const [debouncedOnSearch] = useDebouncedCallback(() => {
+	const { callback: debouncedOnSearch } = useDebouncedCallback(() => {
 		onSearch(query)
 	}, 250)
 	return (
